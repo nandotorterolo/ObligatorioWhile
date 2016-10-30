@@ -20,8 +20,9 @@ public class TernaryOperator extends Exp {
 
 	@Override
 	public Object evaluate(State state) {
-		if (condition.evaluate(state) instanceof Boolean){
-			Boolean truthValue=(Boolean) condition.evaluate(state);
+		Object evaluatedCondition=condition.evaluate(state);
+		if (evaluatedCondition instanceof Boolean){
+			Boolean truthValue=(Boolean) evaluatedCondition;
 			Object result;
 			State statein=state.clone();
 			if (truthValue){
@@ -72,7 +73,7 @@ public class TernaryOperator extends Exp {
 			return checkThenExp;
 		} else {
 			s.errores.add("Los tipos asignados son distintos:"+this.toString());
-			return "Integer";
+			return "Double";
 		}
 	}
 

@@ -1,7 +1,6 @@
 package examples.while_ut1;
 
 
-import examples.while_ut1.parser.*;
 
 import java.io.*;
 import java.util.Iterator;
@@ -9,7 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import examples.while_ut1.ast.*;
-import examples.while_ut1.parser.*;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
