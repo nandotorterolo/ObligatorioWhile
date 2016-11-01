@@ -116,9 +116,9 @@ parametrosConTipo ::=
 		{: HashMap<String, String> $0;
 		$0 = new HashMap<String, String>();
 		RESULT = $0; :}
-	|	parametros:$1 COMMA tipo:$1 ID:$2
+	|	parametrosConTipo:$1 COMMA tipo:$3 ID:$2
 		{: HashMap<String, String> $0;
-		$1.put($2, $1); $0 = $1;
+		$1.put($2, $3); $0 = $1;
 		RESULT = $0; :}
 ;
 

@@ -6,11 +6,24 @@ import java.util.*;
  */
 public class FunctionDeclaration extends Stmt {
 	public final String id;
-	public final Exp expression;
+	public final String type;// en el evaluate de esta clase al evaluar el body
+	//vamos a tener que setear una variable en el estado que es el valor de 
+	// retorno de la función
+	
+	
+	//hay que clonar el estado para guardar las variables locales de la funicón
+	
+	
+	
+	LinkedHashMap<K, V>
+	public final Map<String, String> parameters =new  HashMap<String, String>();
+	public final Stmt body;
 
-	public FunctionDeclaration(String id, Exp expression) {
+
+	public FunctionDeclaration(String id, String type, M) {
 		this.id = id;
 		this.expression = expression;
+		this.
 	}
 
 	@Override public String unparse() {
