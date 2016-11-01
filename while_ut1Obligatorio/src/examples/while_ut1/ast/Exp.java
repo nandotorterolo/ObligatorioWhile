@@ -10,5 +10,5 @@ public abstract class Exp {
 		return Stmt.toDouble(obj, unparse);
 	}
 	
-	
+	abstract public CheckStateLinter checkLinter(CheckStateLinter s);
 }

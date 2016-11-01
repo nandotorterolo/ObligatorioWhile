@@ -16,6 +16,8 @@ public abstract class Stmt {
 
 	@Override public abstract boolean equals(Object obj);
 
+	
+	
 	public static Stmt generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;
 		final int NONTERMINAL_COUNT = 4;
@@ -34,6 +36,8 @@ public abstract class Stmt {
 	public abstract State evaluate(State state);
 	
 	abstract public CheckState check(CheckState s);
+	
+	abstract public CheckStateLinter checkLinter(CheckStateLinter s);
 	
 	public static double toDouble(Object obj,String unparse) {
 		if (obj instanceof Integer){
