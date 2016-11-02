@@ -6,9 +6,9 @@ import java.util.*;
  */
 public class FunctionCall extends Exp {
 	public final String id;
-	public final List <Exp> parameters;
+	public final ArrayList <Exp> parameters;
 
-	public FunctionCall(String id, List<Exp> p) {
+	public FunctionCall(String id, ArrayList<Exp> p) {
 		this.id=id;
 		this.parameters = p;
 	}

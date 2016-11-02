@@ -61,8 +61,8 @@ terminal RETURN;
 terminal COMMA;
 
 non terminal List<Stmt> repeat$stmt;
-non terminal HashMap<String, String> parametrosConTipo;
-non terminal List<String> parametros;
+non terminal LinkedHashMap<String, String> parametrosConTipo;
+non terminal ArrayList<Exp> parametros;
 terminal DO;
 terminal SKIP;
 terminal WHILE;
@@ -123,11 +123,11 @@ parametrosConTipo ::=
 ;
 
 parametros ::= 		
-		{: List<Exp> $0;
+		{: ArrayList<Exp> $0;
 		$0 = new ArrayList<Exp>();
 		RESULT = $0; :}
-	|	parametros:$1 COMMA ID:$2
-		{: List<Exp> $0;
+	|	parametros:$1 COMMA exp:$2
+		{: ArrayList<Exp> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
 ;
