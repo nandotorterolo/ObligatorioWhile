@@ -113,11 +113,11 @@ stmt ::=
 ;
 
 parametrosConTipo ::=  		
-		{: HashMap<String, String> $0;
-		$0 = new HashMap<String, String>();
+		{: LinkedHashMap<String, String> $0;
+		$0 = new LinkedHashMap<String, String>();
 		RESULT = $0; :}
 	|	parametrosConTipo:$1 COMMA tipo:$3 ID:$2
-		{: HashMap<String, String> $0;
+		{: LinkedHashMap<String, String> $0;
 		$1.put($2, $3); $0 = $1;
 		RESULT = $0; :}
 ;
@@ -161,7 +161,7 @@ exp ::=
 	|	exp:$1 ASTERISK:$2 exp:$3
 		{: RESULT = new Multiplication($1, $3); :}
 	|	exp:$1 SLASH:$2 exp:$3
-		{: RESULT = new Division($1, $3); :}
+		{: RESULT = new Division($1, $3);:}
 	|	exp:$1 PLUS_SIGN:$2 exp:$3
 		{: RESULT = new Addition($1, $3); :}
 	|	exp:$1 HYPHEN_MINUS:$2 exp:$3
@@ -191,6 +191,9 @@ exp ::=
 	|	ID:$4 LEFT_PARENTHESIS parametros:$2 RIGHT_PARENTHESIS
 		{: RESULT = new FunctionCall($4, $2); :}
 ;
+
+
+
 
 repeat$stmt ::=
 

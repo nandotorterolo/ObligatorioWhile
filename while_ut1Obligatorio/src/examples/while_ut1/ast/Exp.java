@@ -5,6 +5,7 @@ public abstract class Exp {
 	abstract public Object evaluate(State state);
 	abstract public boolean equals(Object obj);
 	abstract public String check(CheckState s);
+	abstract public String toString();
 	
 	public static double toDouble(Object obj,String unparse) {
 		return Stmt.toDouble(obj, unparse);

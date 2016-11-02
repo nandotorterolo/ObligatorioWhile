@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 import examples.while_ut1.ast.*;
 
 public class Main {
+	public static String variable="";
+	
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("> ");
