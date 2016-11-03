@@ -77,4 +77,17 @@ public class TernaryOperator extends Exp {
 		}
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		this.thenExp.checkLinter(s);
+		this.elseExp.checkLinter(s);
+		return null;
+	}
+
 }

@@ -77,4 +77,11 @@ public class Subtraction extends AExp {
 			return left;
 		}
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		this.left.checkLinter(s);
+		this.right.checkLinter(s);
+		return null;
+	}
 }

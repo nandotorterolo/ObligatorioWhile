@@ -60,6 +60,12 @@ public class Negation extends BExp {
 		}
 		
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		this.condition.checkLinter(s);
+		return "Boolean";
+	}
 	
 	
 }

@@ -6,6 +6,7 @@ public class ObjectState {
 	public boolean assigned=false;
 	public boolean used=false;
 	public int queEs=0;//1=function o 2=variable
+	public Object astNode=null;
 	
 	@Override
 	public ObjectState clone(){

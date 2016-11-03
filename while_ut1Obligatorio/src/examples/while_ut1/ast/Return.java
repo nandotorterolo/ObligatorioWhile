@@ -7,8 +7,10 @@ import java.util.*;
 public class Return extends Stmt {
 	public final Exp exp;	
 
-	public Return(Exp exp) {
+	public Return(Exp exp, int line, int column) {
 		this.exp = exp;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override public String unparse() {

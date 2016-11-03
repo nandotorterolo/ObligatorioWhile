@@ -21,7 +21,12 @@ public class Main {
 			try {
 				if (line.length() > 0) {
 					Stmt prog = (Stmt) (Parser.parse(line).value);
-					System.out.print("\t" + prog.evaluate(state) + "\n> ");
+					CheckStateLinter cslint = new CheckStateLinter();
+					cslint = prog.checkLinter(cslint);
+					for (String error : cslint.errores){
+						System.out.println(error);
+					}
+					//System.out.print("\t" + prog.evaluate(state) + "\n> ");
 				}
 			} catch (Exception err) {
 				System.err.print(err);

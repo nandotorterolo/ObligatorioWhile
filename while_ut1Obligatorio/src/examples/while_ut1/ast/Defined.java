@@ -50,4 +50,10 @@ public class Defined extends Exp {
 	public String check(CheckState s) {		
 		return "Boolean";
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

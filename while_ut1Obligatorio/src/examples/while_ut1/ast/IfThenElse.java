@@ -98,4 +98,10 @@ public class IfThenElse extends Stmt {
 		}
 	}
 
+	@Override
+	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

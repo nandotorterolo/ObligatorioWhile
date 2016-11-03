@@ -81,4 +81,10 @@ public class Addition extends AExp {
 			return left;
 		}
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

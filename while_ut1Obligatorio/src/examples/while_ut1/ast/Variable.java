@@ -7,8 +7,11 @@ import java.util.*;
 public class Variable extends AExp {
 	public final String id;
 
-	public Variable(String id) {
+	
+	public Variable(String id,int line, int column) {
 		this.id = id;
+		this.line=line;
+		this.column=column;
 	}
 
 	@Override public String unparse() {
@@ -35,7 +38,7 @@ public class Variable extends AExp {
 	public static Variable generate(Random random, int min, int max) {
 		String id; 
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		return new Variable(id);
+		return null;
 	}
 
 	@Override
@@ -58,6 +61,19 @@ public class Variable extends AExp {
 //			s.mapa.put(id, objectState);
 			return "Double";
 		}
+		
+	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		if(!s.mapa.containsKey(id)){
+			s.errores.add("Error 8: variable "+id+" no definida. Line:"+line+" Column:"+column);
+			return "Double";
+		}else{
+			s.mapa.get(id).used=true;
+			return s.mapa.get(id).tipo;
+		}
+		
 		
 	}
 }

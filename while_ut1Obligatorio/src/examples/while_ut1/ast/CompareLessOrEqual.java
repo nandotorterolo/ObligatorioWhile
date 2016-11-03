@@ -71,4 +71,10 @@ public class CompareLessOrEqual extends BExp {
 			return right;
 		}
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

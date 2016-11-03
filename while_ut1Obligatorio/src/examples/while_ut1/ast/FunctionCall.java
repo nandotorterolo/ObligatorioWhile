@@ -59,8 +59,8 @@ public class FunctionCall extends Exp {
 
 
 	@Override
-	public CheckStateLinter checkLinter(CheckStateLinter s) {
+	public String checkLinter(CheckStateLinter s) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }
