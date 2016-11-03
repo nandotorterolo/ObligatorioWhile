@@ -47,4 +47,10 @@ public class Str extends Exp{
 	public String check(CheckState s){
 		return "String";
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -7,10 +7,13 @@ import java.util.*;
 public class AssignmentStmt extends Stmt {
 	public final String id;
 	public final Exp expression;
-
-	public AssignmentStmt(String id, Exp expression) {
+	
+	
+	public AssignmentStmt(String id, Exp expression,int line, int column) {
 		this.id = id;
 		this.expression = expression;
+		this.line=line;
+		this.column=column;
 	}
 
 	@Override public String unparse() {
@@ -37,10 +40,7 @@ public class AssignmentStmt extends Stmt {
 	}
 
 	public static AssignmentStmt generate(Random random, int min, int max) {
-		String id; AExp expression; 
-		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		expression = AExp.generate(random, min-1, max-1);
-		return new AssignmentStmt(id, expression);
+		return null; 
 	}
 
 	@Override
@@ -63,6 +63,11 @@ public class AssignmentStmt extends Stmt {
 				s.errores.add("El tipo de la expresion no coincide con la variable "+id+":"+this.unparse());
 			}
 		}
+		return s;
+	}
+
+	@Override
+	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		return s;
 	}
 

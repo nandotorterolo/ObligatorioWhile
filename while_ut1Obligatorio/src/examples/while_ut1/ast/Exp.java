@@ -6,10 +6,13 @@ public abstract class Exp {
 	abstract public boolean equals(Object obj);
 	abstract public String check(CheckState s);
 	abstract public String toString();
+	public int line;
+	public int column;
 	
 	public static double toDouble(Object obj,String unparse) {
 		return Stmt.toDouble(obj, unparse);
 	}
 	
-	abstract public CheckStateLinter checkLinter(CheckStateLinter s);
+	abstract public String checkLinter(CheckStateLinter s);
+	
 }

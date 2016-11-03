@@ -67,4 +67,10 @@ public class Conjunction extends BExp {
 			return right;
 		}
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

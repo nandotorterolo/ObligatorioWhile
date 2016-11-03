@@ -85,5 +85,11 @@ public class IfThen extends Stmt {
 		}
 	}
 
+	@Override
+	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

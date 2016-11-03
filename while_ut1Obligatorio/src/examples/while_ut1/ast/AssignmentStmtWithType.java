@@ -11,10 +11,12 @@ public class AssignmentStmtWithType extends Stmt {
 	public final String id;
 	public Exp expression;
 
-	public AssignmentStmtWithType(String type, String id, Exp expression) {
+	public AssignmentStmtWithType(String type, String id, Exp expression, int line, int column) {
 		this.type = type;
 		this.id = id;
 		this.expression = expression;
+		this.line = line;
+		this.column = column;
 	}
 
 
@@ -137,6 +139,13 @@ public class AssignmentStmtWithType extends Stmt {
 	public void meterTipo(State state){
 		state.mapaTipo.put(id,type);
 		state.mapaValores.put(id,null);
+	}
+
+
+	@Override
+	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		this.expression.checkLinter(s);
+		return s;
 	}
 
 

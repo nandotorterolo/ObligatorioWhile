@@ -64,4 +64,10 @@ public class Numeral extends AExp {
 		} 
 		
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

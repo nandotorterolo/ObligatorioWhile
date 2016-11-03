@@ -60,4 +60,12 @@ public class Sequence extends Stmt {
 		}
 		return s;
 	}
+
+	@Override
+	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		for (int i=0; i<statements.length; i++){
+			s=statements[i].checkLinter(s);
+		}
+		return s;
+	}
 }

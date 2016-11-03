@@ -84,4 +84,18 @@ public class WhileDo extends Stmt {
 		}
 
 	}
+
+	@Override
+	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		Map mapaAntesWhile= CheckState.clonarMapa(s.mapa);
+		CheckStateLinter checkStateLinterWhileIn=new CheckStateLinter();
+		checkStateLinterWhileIn.mapa=mapaAntesWhile;
+		if (condition.checkLinter(s).equals("Boolean")){
+			checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
+			return s;
+		}else{
+			s.errores.add("Error en el if debe poner condicion boolean:"+this.toString());
+			return s;
+		}
+	}
 }

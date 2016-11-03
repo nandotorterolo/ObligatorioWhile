@@ -61,6 +61,12 @@ public class Length extends Exp {
 		}
 		return "Integer";
 	}
+
+	@Override
+	public String checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

@@ -13,11 +13,14 @@ public class FunctionDeclaration extends Stmt {
 	//hay que clonar el estado para guardar las variables locales de la funicón
 
 	public FunctionDeclaration(String id, String type,
-			LinkedHashMap<String, String> parameters,Stmt body) {
+			LinkedHashMap<String, String> parameters,Stmt body,
+			int line, int column) {
 		this.id = id;
 		this.type = type;
 		this.parameters=parameters;
 		this.body=body;
+		this.line = line;
+		this.column = column;
 	}
 
 
@@ -70,7 +73,7 @@ public class FunctionDeclaration extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 

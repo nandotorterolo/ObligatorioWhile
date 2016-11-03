@@ -7,8 +7,10 @@ import java.util.*;
 public class Print extends Stmt {
 	public final Exp expression;
 
-	public Print(Exp expression) {
+	public Print(Exp expression, int line, int column) {
 		this.expression = expression;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override public String unparse() {
@@ -49,5 +51,11 @@ public class Print extends Stmt {
 	public CheckState check(CheckState s) {
 		expression.check(s);
 		return s;
+	}
+
+	@Override
+	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

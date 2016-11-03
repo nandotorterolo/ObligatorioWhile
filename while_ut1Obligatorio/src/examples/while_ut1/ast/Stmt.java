@@ -16,7 +16,8 @@ public abstract class Stmt {
 
 	@Override public abstract boolean equals(Object obj);
 
-	
+	public int line;
+	public int column;
 	
 	public static Stmt generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;
@@ -47,6 +48,5 @@ public abstract class Stmt {
 		}else{
 			throw new IllegalStateException(unparse);
 		}
-		
 	}
 }
