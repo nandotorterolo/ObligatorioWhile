@@ -69,7 +69,7 @@ public class Variable extends AExp {
 		if(!s.mapa.containsKey(id)){
 			s.errores.add("Error 8: variable "+id+" no definida. Line:"+line+" Column:"+column);
 			return "Double";
-		}else{
+		} else {
 			s.mapa.get(id).used=true;
 			return s.mapa.get(id).tipo;
 		}

@@ -144,7 +144,9 @@ public class AssignmentStmtWithType extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		this.expression.checkLinter(s);
+		String expressionType = this.expression.checkLinter(s);
+		ObjectState objState = new ObjectState(this.type, true, 2, this);
+		s.mapa.put(this.id, objState);
 		return s;
 	}
 

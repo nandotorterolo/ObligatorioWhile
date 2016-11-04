@@ -18,10 +18,13 @@ public class CheckStateLinter {
 	
 	public static void generateErrors(CheckStateLinter cslint) {
 		for (Map.Entry<String, ObjectState> element : cslint.mapa.entrySet()) {
-			boolean isFunction = element.getValue().queEs == 1;
-			if (isFunction && !element.getValue().used) {
-				FunctionDeclaration functionDeclaration = (FunctionDeclaration) element.getValue().astNode;
-				addError("3", "funcion declarada sin llamar", functionDeclaration.line, functionDeclaration.column);
+			ObjectState objState = element.getValue();
+			if (!objState.used) {
+				if (objState.isFunction()) {
+					addError("3", "funcion declarada sin llamar", objState.getLine(), objState.getColumn());
+				} else {
+					addError("4", "variable asignada sin usar", objState.getLine(), objState.getColumn());
+				}
 			}
 		}
 	}
