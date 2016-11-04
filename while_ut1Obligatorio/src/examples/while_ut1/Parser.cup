@@ -143,7 +143,8 @@ tipo ::=
 		{: RESULT=new String("Boolean"); :};
 		
 tipoFuncionesDef ::= 
-		tipo
+		tipo:$1
+		{: RESULT= $1; :}
 		| 	VOID:$1
 		{: RESULT=new String("Void"); :}	
 ;
