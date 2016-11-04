@@ -55,7 +55,7 @@ public class Print extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
+		expression.checkLinter(s);
 		return null;
 	}
 }

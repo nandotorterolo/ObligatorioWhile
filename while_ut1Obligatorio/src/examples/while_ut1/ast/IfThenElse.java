@@ -100,7 +100,9 @@ public class IfThenElse extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
+		condition.checkLinter(s);
+		thenBody.checkLinter(s);
+		elseBody.checkLinter(s);
 		return null;
 	}
 

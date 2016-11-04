@@ -63,8 +63,8 @@ public class CompareEqual extends BExp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		this.left.checkLinter(s);
-		this.right.checkLinter(s);
+		left.checkLinter(s);
+		right.checkLinter(s);
 		return "Boolean";
 	}
 }

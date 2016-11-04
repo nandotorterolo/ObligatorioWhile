@@ -87,7 +87,8 @@ public class IfThen extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
+		condition.checkLinter(s);
+		thenBody.checkLinter(s);
 		return null;
 	}
 

@@ -108,8 +108,14 @@ public class AssignmentExp extends Exp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
-		return null;
+		String expressionType = this.expression.checkLinter(s);
+		boolean variableDefined = s.mapa.containsKey(id);
+		ObjectState objState = new ObjectState("Double", true, 3, this);
+		s.mapa.put(this.id, objState);
+		if (variableDefined) {
+			s.mapa.get(id).used = true;
+		}
+		return expressionType;
 	}
 
 

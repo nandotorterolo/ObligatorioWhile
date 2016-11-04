@@ -64,7 +64,7 @@ public class Length extends Exp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
+		expression.checkLinter(s);
 		return null;
 	}
 	

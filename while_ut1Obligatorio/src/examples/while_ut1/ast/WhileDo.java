@@ -94,7 +94,7 @@ public class WhileDo extends Stmt {
 			checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
 			return s;
 		}else{
-			s.errores.add("Error en el if debe poner condicion boolean:"+this.toString());
+			CheckStateLinter.addError("0", "debe ir condicion boolean en el if", line, column);
 			return s;
 		}
 	}
