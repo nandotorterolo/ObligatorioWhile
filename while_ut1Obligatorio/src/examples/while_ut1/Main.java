@@ -23,10 +23,10 @@ public class Main {
 					Stmt prog = (Stmt) (Parser.parse(line).value);
 					CheckStateLinter cslint = new CheckStateLinter();
 					cslint = prog.checkLinter(cslint);
-					for (String error : cslint.errores){
+					CheckStateLinter.generateErrors(cslint);
+					for (String error : CheckStateLinter.errores) {
 						System.out.println(error);
 					}
-					//System.out.print("\t" + prog.evaluate(state) + "\n> ");
 				}
 			} catch (Exception err) {
 				System.err.print(err);

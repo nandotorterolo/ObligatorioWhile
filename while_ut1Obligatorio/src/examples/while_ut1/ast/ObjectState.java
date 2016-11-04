@@ -15,6 +15,8 @@ public class ObjectState {
 		this.astNode = astNode;
 	}
 	
+	public ObjectState() {}
+	
 	@Override
 	public ObjectState clone(){
 		ObjectState objectState=new ObjectState();
