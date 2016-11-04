@@ -8,9 +8,11 @@ public class FunctionCall extends Exp {
 	public final String id;
 	public final ArrayList <Exp> parameters;
 
-	public FunctionCall(String id, ArrayList<Exp> p) {
+	public FunctionCall(String id, ArrayList<Exp> p, int line, int column) {
 		this.id=id;
 		this.parameters = p;
+		this.line = line;
+		this.column = column;
 	}
 
 
@@ -60,7 +62,25 @@ public class FunctionCall extends Exp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
-		return null;
+		if (s.mapa.containsKey(this.id)) {
+			ObjectState objState = s.mapa.get(this.id);
+			objState.used = true;
+			FunctionDeclaration functionDeclaration = (FunctionDeclaration) objState.astNode;
+			if (!(this.parameters.size() == functionDeclaration.parmeters.size())) {
+				CheckStateLinter.addError("10A", "cantidad de parametros de funcion incorrectos", line, column);
+			} else {
+				for (int i = 0; i < this.parameters.size(); i++){
+					String parameterType = this.parameters.get(i).checkLinter(s);
+					String expectedType = functionDeclaration.parameters.values().toArray()[i];
+				    if (!(parameterType == expectedType)) {
+				    	String msg = "parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType;
+				    	CheckStateLinter.addError("10B", msg, line, column);
+				    }
+				}
+			}
+			
+			return functionDeclaration.type;
+		}
+		return "Double";
 	}
 }

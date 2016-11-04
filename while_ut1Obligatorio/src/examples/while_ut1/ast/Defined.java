@@ -53,7 +53,6 @@ public class Defined extends Exp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
-		return null;
+		return "Boolean";
 	}
 }

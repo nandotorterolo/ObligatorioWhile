@@ -70,7 +70,8 @@ public class Conjunction extends BExp {
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
-		return null;
+		this.left.checkLinter(s);
+		this.right.checkLinter(s);
+		return "Boolean";
 	}
 }

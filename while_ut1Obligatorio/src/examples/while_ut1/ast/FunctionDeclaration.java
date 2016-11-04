@@ -72,8 +72,9 @@ public class FunctionDeclaration extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectState objState = new ObjectState(this.type, false, 1, this);
+		s.mapa.put(this.id, objState);
+		return s;
 	}
 
 

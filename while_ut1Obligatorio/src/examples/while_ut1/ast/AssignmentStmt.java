@@ -68,6 +68,7 @@ public class AssignmentStmt extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		this.expression.checkLinter(s);
 		return s;
 	}
 
