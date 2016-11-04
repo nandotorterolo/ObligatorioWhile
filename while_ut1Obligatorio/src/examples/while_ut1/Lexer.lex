@@ -3,6 +3,7 @@ package examples.while_ut1;
 import java_cup.runtime.Symbol;
 import java.util.*;
 import java.io.*;
+import examples.while_ut1.ast.CheckStateLinter;
 
 %%
 
@@ -47,7 +48,7 @@ String =	\"([^\"\\\n]|\\[bntrf\"\\/]|\\u[0-9a-fA-F]{4})*\"
 {String}	{ return new Symbol(STR, yyline, yycolumn, yytext().substring(1,yytext().length()-1)); }
 
 \n[ \t\r\f\v]*\n[ \t\r\n\f\v]*\n 
-	{ System.out.println("Existen dos o mas caracteres de salto de linea consecutivos"); }
+	{ CheckStateLinter.addError("1","existe mas de un salto de linea consecutivo", yyline, yycolumn); }
 
 "!"
 	{ return new Symbol(EXCLAMATION_MARK, yyline, yycolumn, yytext()); }
