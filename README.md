@@ -21,7 +21,7 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 | 7      | Los nombres de los métodos deben comenzar con minúsculas                                                                                              | MC       | x   |      |
 | 8      | Uso de variables no definidas                                                                                                                         | MC - JPL | x   |      |
 | 9      | Chequear llamado a funciones que en el caso que se quiera asignar su retorno retornen algo y el tipo coincida.                                        |          |     |      |
-| 10     | Chequear que la cantidad de variables que se le pasa a una función sea igual a la definición así como los tipos.                                      | MC       |     |      |
+| 10     | Chequear que la cantidad de variables que se le pasa a una función sea igual a la definición así como los tipos.                                      | MC       | x   |      |
 | 11     | Detectar parámetros de funciones que no son utilizados.                                                                                               |          |     |      |
 | 12     | Chequear que las funciones que deben devolver algo lo hagan y lo hagan en el tipo definido en la firma así como las que no devuelven nada no lo hagan |          |     |      |
 | 13     | No se puede redefinir funciones                                                                                                                       | MC       |     |      |
