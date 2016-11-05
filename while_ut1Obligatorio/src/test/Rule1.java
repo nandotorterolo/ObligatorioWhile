@@ -27,20 +27,21 @@ public class Rule1 extends TestCase {
 	}
 
 	protected void loadData1() {
-		datosPruebas.put(1, "{y=2;\n\n y=3; \n\t\f\n x=6+y;}");
-		datosPruebas.put(2, "{y=2;\n\ny=3;\n\nx=6+y;print(x);}"); // la funcion print, no tiene
+		datosPruebas.put(1, "{y=2;\ny=3;}"); // ok
+		datosPruebas.put(2, "{y=2;\n\ny=3;}");  // MAL
+		datosPruebas.put(3, "{y=2;\n\n\ny=3;}"); // ok
+		datosPruebas.put(4, "{y=2;\n\n\n\ny=3;}"); // ok
 	}
 
 	public void testData1() {
 		try {
-			Integer numTest = 1;
-			CheckStateLinter.addError("dsdf", "sdf", 1, 1);
+			Integer numTest =4;
+//			CheckStateLinter.addError("dsdf", "sdf", 1, 1);
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
 			if (obj instanceof Stmt) {
 				CheckStateLinter check = ((Stmt) obj).checkLinter(state); 
 				logger.log(Level.INFO, check.toString());
-				logger.log(Level.WARNING,"llego al final");
 			} else {
 				logger.log(Level.WARNING,"No es instacia de Stmt");
 			}
