@@ -16,7 +16,7 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 | 2      | Que haya solo un statement por línea                                                                                                                  |          |     |      |
 | 3      | Detectar funciones declaradas sin llamar                                                                                                              | MC       | x   |      |
 | 4      | Detectar variables declaradas sin usar                                                                                                                | MC       | x   |      |
-| 5      | Detectar código que no se va a ejecutar. ej: '' if (15>10) { /\*\*/ } else { /\* esto no se ejecuta nunca \*/ }''                                     |          |     |      |
+| 5      | Detectar código que no se va a ejecutar. ej: '' if (15>10) { /\*\*/ } else { /\* esto no se ejecuta nunca \*/ }''                                     | CD - JPL   |     |      |
 | 6      | Los nombres de la variables deben comenzar con minúsculas y sin guiones bajos                                                                         | MC       |     |      |
 | 7      | Los nombres de los métodos deben comenzar con minúsculas                                                                                              | MC       | x   |      |
 | 8      | Uso de variables no definidas                                                                                                                         | MC - JPL |     |      |
