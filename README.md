@@ -19,7 +19,7 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 | 5      | Detectar código que no se va a ejecutar. ej: '' if (15>10) { /\*\*/ } else { /\* esto no se ejecuta nunca \*/ }''                                     | CD - JPL   |     |  CD  |
 | 6      | Los nombres de la variables deben comenzar con minúsculas y sin guiones bajos                                                                         | MC       | x   |      |
 | 7      | Los nombres de los métodos deben comenzar con minúsculas                                                                                              | MC       | x   |      |
-| 8      | Uso de variables no definidas                                                                                                                         | MC - JPL |     |      |
+| 8      | Uso de variables no definidas                                                                                                                         | MC - JPL | x   |      |
 | 9      | Chequear llamado a funciones que en el caso que se quiera asignar su retorno retornen algo y el tipo coincida.                                        |          |     |      |
 | 10     | Chequear que la cantidad de variables que se le pasa a una función sea igual a la definición así como los tipos.                                      | MC       |     |      |
 | 11     | Detectar parámetros de funciones que no son utilizados.                                                                                               |          |     |      |
