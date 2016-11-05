@@ -53,4 +53,9 @@ public class Str extends Exp{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Exp optimize() {
+		return this;
+	}
 }

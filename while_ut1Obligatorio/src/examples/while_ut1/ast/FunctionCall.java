@@ -83,4 +83,10 @@ public class FunctionCall extends Exp {
 		}
 		return "Double";
 	}
+
+
+	@Override
+	public Exp optimize() {
+		return this;
+	}
 }

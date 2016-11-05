@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 
 /**
  * Regla numeo 1
- * Que no exista mÃ¡s de un salto de lÃ­nea entre dos lÃ­neas de cÃ³digo consecutivas.
+ * Que no exista más de un salto de línea entre dos líneas de código consecutivas.
  */
 public class Rule1 extends TestCase {
 

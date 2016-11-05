@@ -118,5 +118,19 @@ public class AssignmentExp extends Exp {
 		return expressionType;
 	}
 
+	@Override
+	public Exp optimize() {
+		Exp optimizedExpression = expression.optimize();
+		if (optimizedExpression instanceof Numeral){
+			return optimizedExpression;
+		}else if(optimizedExpression instanceof Str){
+			return optimizedExpression;
+		}else if(optimizedExpression instanceof TruthValue){
+			return optimizedExpression;
+		}else{
+			return this;
+		}
+	}
+
 
 }

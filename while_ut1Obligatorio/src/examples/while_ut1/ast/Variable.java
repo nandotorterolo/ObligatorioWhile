@@ -74,4 +74,9 @@ public class Variable extends AExp {
 			return s.mapa.get(id).tipo;
 		}	
 	}
+
+	@Override
+	public Exp optimize() {
+		return this;
+	}
 }
