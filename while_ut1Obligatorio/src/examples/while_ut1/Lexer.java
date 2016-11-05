@@ -757,7 +757,9 @@ class Lexer implements java_cup.runtime.Scanner, Tokens {
           }
         case 49: break;
         case 26: 
-          { CheckStateLinter.addError("1","existe mas de un salto de linea consecutivo", yyline, yycolumn);
+          { 
+        	  System.out.println("DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+        	  CheckStateLinter.addError("1","existe mas de un salto de linea consecutivo", yyline, yycolumn);
           }
         case 50: break;
         case 20: 
