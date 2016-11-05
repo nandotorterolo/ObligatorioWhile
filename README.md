@@ -24,7 +24,7 @@ H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". 
 | 10     | Chequear que la cantidad de variables que se le pasa a una función sea igual a la definición así como los tipos.                                      | MC       | x   |      |
 | 11     | Detectar parámetros de funciones que no son utilizados.                                                                                               |          |     |      |
 | 12     | Chequear que las funciones que deben devolver algo lo hagan y lo hagan en el tipo definido en la firma así como las que no devuelven nada no lo hagan |          |     |      |
-| 13     | No se puede redefinir funciones                                                                                                                       | MC       |     |      |
+| 13     | No se puede redefinir funciones                                                                                                                       | MC       | x   |      |
 | 14     | No se puede redefinir variables                                                                                                                       | MC       |     |      |
 | 15     | Comprobar que el tipo de la variable y la expresión coincidan al momento de asignar                                                                   |          |     |      |
 | 16     | No se puede tener paréntesis superfluos                                                                                                               |          |     |      |
