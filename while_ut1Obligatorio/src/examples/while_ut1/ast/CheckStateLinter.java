@@ -24,7 +24,7 @@ public class CheckStateLinter {
 				if (objState.isFunction()) {
 					addError("3", "funcion declarada sin llamar", objState.getLine(), objState.getColumn());
 				} else {
-					addError("4", "variable asignada sin usarr", objState.getLine(), objState.getColumn());
+					addError("4", "variable asignada sin usar", objState.getLine(), objState.getColumn());
 				}
 			}
 		}
