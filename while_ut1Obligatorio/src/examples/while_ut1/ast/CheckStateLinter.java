@@ -2,6 +2,7 @@ package examples.while_ut1.ast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class CheckStateLinter {
@@ -28,4 +29,17 @@ public class CheckStateLinter {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		String resultado = "";
+			
+		for (String value : errores) {
+			resultado = resultado + "\n" + value;
+		}
+		
+		return resultado;
+	}
+	
+	
 }
