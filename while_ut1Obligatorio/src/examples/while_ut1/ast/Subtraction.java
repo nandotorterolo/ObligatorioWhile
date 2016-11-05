@@ -86,7 +86,7 @@ public class Subtraction extends AExp {
 	}
 
 	@Override
-	public Exp optimize() {
+	public Exp optimize() { 
 		Exp leftOptimized =left.optimize();
 		Exp rightOptimized =right.optimize();
 		if (leftOptimized instanceof Numeral && rightOptimized instanceof Numeral){
