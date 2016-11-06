@@ -209,7 +209,8 @@ exp ::=
 	|	exp:$1 HYPHEN_MINUS:$2 exp:$3
 		{: RESULT = new Subtraction($1, $3); :}
 	|	LEFT_PARENTHESIS:$1 exp:$2 RIGHT_PARENTHESIS:$3
-		{: RESULT = $2; :}
+		{: System.out.println($1.toString().contains("(")); 
+		RESULT = $2; :}	
 	|	TRUE:$1
 		{: RESULT = new TruthValue(true); :}
 	|	FALSE:$1
