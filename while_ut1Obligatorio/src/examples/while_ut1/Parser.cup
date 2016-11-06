@@ -69,6 +69,7 @@ terminal FUNCTION;
 terminal VOID;
 terminal RETURN;
 terminal COMMA;
+terminal NEW_LINE;
 
 terminal DO;
 terminal SKIP;
@@ -241,7 +242,6 @@ parametros ::=
 	|	exp:$2 COMMA parametros:$1  
 		{: ArrayList<Exp> $0;
 		$1.add($2); $0 = $1;
-		System.out.println($1.size());
 		RESULT = $0; :}
 	|	exp:$2
 		{: ArrayList<Exp> $0;
@@ -275,9 +275,13 @@ repeat$stmtBasics ::=
 	|	repeat$stmtBasics:$1 stmtBasics:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
+		CheckStateLinter.addError("2","Stmts en la misma línea", $2left, $2right);
+		RESULT = $0; :}
+	|	repeat$stmtBasics:$1 NEW_LINE stmtBasics:$2
+		{: List<Stmt> $0;
+		$1.add($2); $0 = $1;
 		RESULT = $0; :}
 ;
-
 
 repeat$stmtFunctions ::=
 		{: List<Stmt> $0;
@@ -286,7 +290,12 @@ repeat$stmtFunctions ::=
 	|	repeat$stmtFunctions:$1 stmtFunctions:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
+		CheckStateLinter.addError("2","Stmts en la misma línea", $2left, $2right);
 		RESULT = $0; :}
+	|	repeat$stmtFunctions:$1 NEW_LINE stmtFunctions:$2
+		{: List<Stmt> $0;
+		$1.add($2); $0 = $1;
+		RESULT = $0; :}	
 ;
 
 repeat$stmtMain ::=
@@ -296,9 +305,13 @@ repeat$stmtMain ::=
 	|	repeat$stmtMain:$1 stmtMain:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
+		CheckStateLinter.addError("2","Stmts en la misma línea", $2left, $2right);
 		RESULT = $0; :}
+	|	repeat$stmtMain:$1 NEW_LINE stmtMain:$2
+		{: List<Stmt> $0;
+		$1.add($2); $0 = $1;
+		RESULT = $0; :}	
 ;
-
 
 
 
