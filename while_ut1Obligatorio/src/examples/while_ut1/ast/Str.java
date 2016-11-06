@@ -50,8 +50,7 @@ public class Str extends Exp{
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
-		return null;
+		return "String";
 	}
 
 	@Override
