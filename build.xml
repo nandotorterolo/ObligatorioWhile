@@ -1,0 +1,47 @@
+<project name="Compiler" default="compile" basedir=".">
+    <property name="classes" location="bin"/>
+    <property name="lib" location="lib"/>
+    <property name="tools" location="tools"/>
+    <property name="test" location="src/java/test/ucu"/>
+
+    <taskdef name="jflex" classname="jflex.anttask.JFlexTask" classpath="${tools}/jflex-1.6.1.jar"/>
+    <taskdef name="cup" classname="java_cup.anttask.CUPTask" classpath="${tools}/java-cup-11b.jar"/>
+
+    <path id="libraries">
+        <files includes="${lib}/java-cup-11b-runtime.jar"/>
+    </path>
+
+    <target name="generate">
+        <jflex file="src/main/java/ucu/Lexer.lex" destdir="src/main/java"/>
+        <cup srcfile="src/main/java/ucu/Parser.cup" destdir="src/main/java"
+             parser="Parser" interface="true" locations="false" force="true"/>
+    </target>
+
+    <target name="compile" depends="generate">
+        <javac srcdir="src/main/java/ucu" destdir="${classes}">
+            <classpath refid="libraries"/>
+        </javac>
+    </target>
+
+    <target name="clean">
+        <delete file="src/main/java/ucu/Parser.java"/>
+        <delete file="src/main/java/ucu/Tokens.java"/>
+        <delete file="src/main/java/ucu/Lexer.java"/>
+    </target>
+
+    <target name="test" depends="compile">
+        <junit  printsummary="yes" haltonfailure="no">
+            <classpath>
+                <pathelement location="bin" />
+                <pathelement location="tools/junit-4.12.jar"/>
+            </classpath>
+            <batchtest>
+                <fileset dir="${test}">
+                    <include name="Rule*.java" />
+                </fileset>
+            </batchtest>
+            <formatter type="brief" usefile="false"/>
+        </junit>
+    </target>
+
+</project>
