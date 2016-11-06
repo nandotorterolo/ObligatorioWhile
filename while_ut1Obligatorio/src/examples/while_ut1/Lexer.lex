@@ -49,6 +49,8 @@ String =	\"([^\"\\\n]|\\[bntrf\"\\/]|\\u[0-9a-fA-F]{4})*\"
 
 \n[ \t\r\f\v]*\n[ \t\r\n\f\v]*\n 
 	{ CheckStateLinter.addError("1","existe mas de un salto de linea consecutivo", yyline, yycolumn); }
+[ \t\r\f\v]*\n
+	{ return new Symbol(NEW_LINE, yyline, yycolumn, yytext()); }
 
 "!"
 	{ return new Symbol(EXCLAMATION_MARK, yyline, yycolumn, yytext()); }
@@ -135,7 +137,8 @@ String =	\"([^\"\\\n]|\\[bntrf\"\\/]|\\u[0-9a-fA-F]{4})*\"
 	{ String $1 = yytext(); String $0;
 	  $0 = $1;
 	  return new Symbol(ID, yyline, yycolumn, $0); }
-	  
+
+
 	  
 [ \t\r\n\f\v]+
 	{ /* Ignore */ }
