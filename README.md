@@ -4,6 +4,8 @@ El obligatorio tiene como objetivo agregar funcionalidades al lenguaje While dic
 
 Integrantes: Juan Lemos, Mauricio Coniglio, Cynthia Duhalde, Fernando Torterolo
 
+[![Build Status](https://travis-ci.org/nandotorterolo/ObligatorioWhile.svg?branch=master)](https://travis-ci.org/nandotorterolo/ObligatorioWhile)
+
 [NIELSON1999] (http://www.daimi.au.dk/~bra8130/Wiley_book/wiley.html)
 H.R. Nielson & F. Nielson: "Semantic with Applications: A formal introduction". John Wiley & Sons, revised edition ISBN 0-471-92980-8.
 
