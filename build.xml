@@ -12,7 +12,7 @@
     </path>
 
     <target name="generate">
-        <jflex file="src/main/java/ucu/Lexer.lex" destdir="src/main/java"/>
+        <jflex file="src/main/resources/Lexer.lex" destdir="src/main/java"/>
         <cup srcfile="src/main/java/ucu/Parser.cup" destdir="src/main/java"
              parser="Parser" interface="true" locations="false" force="true"/>
     </target>
