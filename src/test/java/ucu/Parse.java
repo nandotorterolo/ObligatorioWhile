@@ -1,7 +1,5 @@
 package ucu;
 
-
-import ucu.Parser;
 import ucu.ast.Stmt;
 
 public class Parse {

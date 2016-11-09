@@ -1,6 +1,6 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 
 /** Representación de las comparaciones por igual.
@@ -38,7 +38,7 @@ public class CompareEqual extends BExp {
 	}
 
 	public static CompareEqual generate(Random random, int min, int max) {
-		AExp left; AExp right;
+		AExp left; AExp right; 
 		left = AExp.generate(random, min-1, max-1);
 		right = AExp.generate(random, min-1, max-1);
 		return new CompareEqual(left, right);
@@ -86,17 +86,27 @@ public class CompareEqual extends BExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new TruthValue(leftNumberValue == rightNumberValue);
+			return new TruthValue(leftNumberValue == rightNumberValue, left.line, left.column);
 		}else if(leftOptimized instanceof Str  && rightOptimized instanceof Str) {
 			String leftString=(String)(((Str)leftOptimized).value);
 			String rightString=(String)(((Str)rightOptimized).value);
-			return new TruthValue(leftString.equals(rightString));
-		}else if(leftOptimized instanceof TruthValue && rightOptimized instanceof TruthValue) {
-			return new TruthValue(((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value);
+			return new TruthValue(leftString.equals(rightString), left.line, left.column);
+		}else if(leftOptimized instanceof TruthValue  && rightOptimized instanceof TruthValue) {
+			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value, left.line, left.column);
 		}
 		else{
 			return this;
 		}
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 
 }

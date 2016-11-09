@@ -1,6 +1,6 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Representación de las asignaciones de valores a variables.
  */
@@ -39,7 +39,7 @@ public class AssignmentExp extends Exp {
 	}
 
 	public static AssignmentExp generate(Random random, int min, int max) {
-		String id; AExp expression;
+		String id; AExp expression; 
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
 		expression = AExp.generate(random, min-1, max-1);
 		return new AssignmentExp(id, expression, 1, 1);
@@ -65,8 +65,8 @@ public class AssignmentExp extends Exp {
 		}
 		return expression.check(s);
 	}
-
-	public static Object asignarValor(Exp expression, State state, String id, String unparse2){
+	
+	public static Object asignarValor(Exp expression,State state,String id,String unparse2){
 		Object valor = expression.evaluate(state);
 		if (valor instanceof String){
 			if (state.mapaTipo.get(id).equals("String")){
@@ -115,7 +115,7 @@ public class AssignmentExp extends Exp {
 			s.mapa.get(id).used = true;
 		} else {
 			CheckStateLinter.addError8(id, line, column);
-			ObjectState objState = new ObjectState("Double", true, 4, this);
+			ObjectState objState = new ObjectState("Double", true, 2, this);
 			s.mapa.put(this.id, objState);
 		}
 		return expressionType;
@@ -135,5 +135,13 @@ public class AssignmentExp extends Exp {
 		}
 	}
 
+	@Override
+	public int getLine() {
+		return 0;
+	}
 
+	@Override
+	public int getColumn() {
+		return 0;
+	}
 }

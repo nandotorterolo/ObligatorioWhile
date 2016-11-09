@@ -1,5 +1,7 @@
 package ucu.ast;
 
+import java.util.*;
+
 /** Representación de conjunciones booleanas (AND).
 */
 public class Defined extends BExp {
@@ -45,7 +47,7 @@ public class Defined extends BExp {
 	}
 
 	@Override
-	public String check(CheckState s) {
+	public String check(CheckState s) {		
 		return "Boolean";
 	}
 
@@ -57,5 +59,15 @@ public class Defined extends BExp {
 	@Override
 	public Exp optimize() {
 		return this;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

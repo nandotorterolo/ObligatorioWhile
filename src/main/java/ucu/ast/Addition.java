@@ -1,6 +1,6 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Representación de sumas.
 */
@@ -50,7 +50,7 @@ public class Addition extends AExp {
 		right =this.right.evaluate(state);
     if (left instanceof Integer && right instanceof Integer){
 			return (Integer) left + (Integer) right;
-		}
+		} 
 		 else if (left instanceof String && right instanceof String){
 			return (String) left + (String) right;
 		 }
@@ -106,8 +106,18 @@ public class Addition extends AExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new Numeral(leftNumberValue+rightNumberValue);
+			return new Numeral(leftNumberValue+rightNumberValue, left.line, left.column);
 		}	
 		return this;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

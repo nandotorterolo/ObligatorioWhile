@@ -1,11 +1,11 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Categoría sintáctica de las expresiones aritméticas de While, las 
 	construcciones del lenguaje que evalúan a un número.
 */
-public abstract class AExp extends Exp {
+public abstract class AExp extends Exp{
 
 	abstract public String unparse();
 

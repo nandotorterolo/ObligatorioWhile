@@ -1,11 +1,11 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Representación de las comparaciones por igual.
 */
 public class Return extends Stmt {
-	public final Exp exp;
+	public final Exp exp;	
 
 	public Return(Exp exp, int line, int column) {
 		this.exp = exp;
@@ -47,5 +47,15 @@ public class Return extends Stmt {
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

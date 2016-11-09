@@ -1,5 +1,6 @@
 package ucu.ast;
-import java.util.Random;
+
+import java.util.*;
 
 /** Representación de divisiones.
  */
@@ -101,8 +102,18 @@ public class Division extends AExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new Numeral(leftNumberValue/rightNumberValue);
+			return new Numeral(leftNumberValue/rightNumberValue, left.line, left.column);
 		}	
 		return this;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

@@ -1,7 +1,6 @@
 package ucu.ast;
 
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /** Representación de las sentencias condicionales.
  */
@@ -38,7 +37,7 @@ public class IfThen extends Stmt {
 	}
 
 	public static IfThen generate(Random random, int min, int max) {
-		BExp condition; Stmt thenBody;
+		BExp condition; Stmt thenBody;  
 		condition = BExp.generate(random, min-1, max-1);
 		thenBody = Stmt.generate(random, min-1, max-1);
 		return new IfThen(condition, thenBody);
@@ -91,17 +90,24 @@ public class IfThen extends Stmt {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
-				CheckStateLinter.addError("5", "La condici�n no es necesaria", line, column);
+				CheckStateLinter.addError5A(line, column);
 			}else{
-				CheckStateLinter.addError("5", "El codigo interno no se ejecutar� nunca", line, column);
+				CheckStateLinter.addError5B(line, column);
 			}
 		}
-
 
 		condition.checkLinter(s);
 		thenBody.checkLinter(s);
 		return null;
 	}
 
+	@Override
+	public int getLine() {
+		return 0;
+	}
 
+	@Override
+	public int getColumn() {
+		return 0;
+	}
 }

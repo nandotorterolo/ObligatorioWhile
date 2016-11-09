@@ -1,12 +1,12 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Categoría sintáctica de las sentencias (statements) de While, las 
 	construcciones del lenguaje que modifican (potencialmente) los 
 	valores de las variables en el estado del programa.
 */
-public abstract class Stmt {
+public abstract class Stmt extends AstNode {
 
 	public abstract String unparse();
 
@@ -15,9 +15,6 @@ public abstract class Stmt {
 	@Override public abstract int hashCode();
 
 	@Override public abstract boolean equals(Object obj);
-
-	public int line;
-	public int column;
 	
 	public static Stmt generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;
@@ -37,7 +34,7 @@ public abstract class Stmt {
 	public abstract State evaluate(State state);
 	
 	abstract public CheckState check(CheckState s);
-
+	
 	abstract public CheckStateLinter checkLinter(CheckStateLinter s);
 	
 	public static double toDouble(Object obj,String unparse) {

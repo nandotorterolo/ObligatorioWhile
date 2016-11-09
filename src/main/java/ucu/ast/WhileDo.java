@@ -1,7 +1,6 @@
 package ucu.ast;
 
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /** Representación de las iteraciones while-do.
  */
@@ -38,7 +37,7 @@ public class WhileDo extends Stmt {
 	}
 
 	public static WhileDo generate(Random random, int min, int max) {
-		BExp condition; Stmt body;
+		BExp condition; Stmt body; 
 		condition = BExp.generate(random, min-1, max-1);
 		body = Stmt.generate(random, min-1, max-1);
 		return new WhileDo(condition, body);
@@ -51,7 +50,7 @@ public class WhileDo extends Stmt {
 			while ((Boolean)condition.evaluate(statein)){
 				body.evaluate(statein);
 			}
-			state.mapaValores= State.actualizarValoresMapViejo(state.mapaValores,statein.mapaValores);
+			state.mapaValores=State.actualizarValoresMapViejo(state.mapaValores,statein.mapaValores);
 
 			return state;
 		}
@@ -91,21 +90,26 @@ public class WhileDo extends Stmt {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (!((TruthValue) optimizado).value){
-				CheckStateLinter.addError("5", "El codigo interno no se ejecutar� nunca", line, column);
+				CheckStateLinter.addError5B(line, column);
 			}
 		}
 
-
-
 		Map mapaAntesWhile= CheckState.clonarMapa(s.mapa);
 		CheckStateLinter checkStateLinterWhileIn=new CheckStateLinter();
-		checkStateLinterWhileIn.mapa=mapaAntesWhile;
+		checkStateLinterWhileIn.mapa = mapaAntesWhile;
 		if (condition.checkLinter(s).equals("Boolean")){
 			checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
-			return s;
-		}else{
-			CheckStateLinter.addError("0", "debe ir condicion boolean en el if", line, column);
-			return s;
 		}
+		return s;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

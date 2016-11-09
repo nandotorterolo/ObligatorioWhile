@@ -1,6 +1,6 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Representación de restas.
  */
@@ -86,7 +86,7 @@ public class Subtraction extends AExp {
 	}
 
 	@Override
-	public Exp optimize() {
+	public Exp optimize() { 
 		Exp leftOptimized =left.optimize();
 		Exp rightOptimized =right.optimize();
 		if (leftOptimized instanceof Numeral && rightOptimized instanceof Numeral){
@@ -102,8 +102,18 @@ public class Subtraction extends AExp {
 			}else{
 				rightNumberValue =((Double)((Numeral)rightOptimized).number);
 			}
-			return new Numeral(leftNumberValue-rightNumberValue);
+			return new Numeral(leftNumberValue-rightNumberValue, left.line, left.column);
 		}	
 		return this;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

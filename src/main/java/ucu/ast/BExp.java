@@ -1,6 +1,6 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Categoría sintáctica de las expresiones booleanas de While, las 
 	construcciones del lenguaje que evalúan a un valor de verdad (booleano).

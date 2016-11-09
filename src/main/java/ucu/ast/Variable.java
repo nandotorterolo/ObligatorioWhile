@@ -1,6 +1,6 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Representación de usos de variable en expresiones.
 */
@@ -48,7 +48,7 @@ public class Variable extends AExp {
 		}
 		throw new IllegalStateException(this.unparse());
 	}
-
+	
 	@Override
 	public String check(CheckState s){
 		if (s.mapa.containsKey(id)){
@@ -61,11 +61,12 @@ public class Variable extends AExp {
 //			s.mapa.put(id, objectState);
 			return "Double";
 		}
-
+		
 	}
 
 	@Override
 	public String checkLinter(CheckStateLinter s) {
+		if (getIsInsideParenthesis()) CheckStateLinter.addError16(line, column);
 		if(!s.mapa.containsKey(id)){
 			CheckStateLinter.addError8(id, line, column);
 			return "Double";
@@ -78,5 +79,15 @@ public class Variable extends AExp {
 	@Override
 	public Exp optimize() {
 		return this;
+	}
+
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
 	}
 }

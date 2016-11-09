@@ -1,5 +1,7 @@
 package ucu.ast;
 
+import java.util.*;
+
 /** Representación de las sentencias condicionales.
 */
 public class Print extends Stmt {
@@ -33,7 +35,7 @@ public class Print extends Stmt {
 	}
 //
 //	public static Print generate(Random random, int min, int max) {
-//		BExp condition; Stmt thenBody;
+//		BExp condition; Stmt thenBody;  
 //		condition = BExp.generate(random, min-1, max-1);
 //		thenBody = Stmt.generate(random, min-1, max-1);
 //		return new Print(condition, thenBody);
@@ -55,5 +57,15 @@ public class Print extends Stmt {
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		expression.checkLinter(s);
 		return null;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

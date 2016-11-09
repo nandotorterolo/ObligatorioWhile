@@ -1,15 +1,15 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Representación de las asignaciones de valores a variables.
  */
 public class AssignmentStmt extends Stmt {
 	public final String id;
 	public final Exp expression;
-
-
-	public AssignmentStmt(String id, Exp expression, int line, int column) {
+	
+	
+	public AssignmentStmt(String id, Exp expression,int line, int column) {
 		this.id = id;
 		this.expression = expression;
 		this.line=line;
@@ -40,14 +40,14 @@ public class AssignmentStmt extends Stmt {
 	}
 
 	public static AssignmentStmt generate(Random random, int min, int max) {
-		return null;
+		return null; 
 	}
 
 	@Override
 	public State evaluate(State state) {
 		AssignmentExp.asignarValor(expression,state,id,this.unparse());
 		return state;
-
+				
 	}
 
 	@Override
@@ -73,11 +73,19 @@ public class AssignmentStmt extends Stmt {
 			s.mapa.get(id).used = true;
 		} else {
 			CheckStateLinter.addError8(id, line, column);
-			ObjectState objState = new ObjectState("Double", true, 3, this);
+			ObjectState objState = new ObjectState("Double", true, 2, this);
 			s.mapa.put(this.id, objState);
 		}
 		return s;
 	}
 
-		
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

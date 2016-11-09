@@ -1,7 +1,6 @@
 package ucu.ast;
 
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /** Representación de las sentencias condicionales.
  */
@@ -42,7 +41,7 @@ public class IfThenElse extends Stmt {
 	}
 
 	public static IfThenElse generate(Random random, int min, int max) {
-		BExp condition; Stmt thenBody; Stmt elseBody;
+		BExp condition; Stmt thenBody; Stmt elseBody; 
 		condition = BExp.generate(random, min-1, max-1);
 		thenBody = Stmt.generate(random, min-1, max-1);
 		elseBody = Stmt.generate(random, min-1, max-1);
@@ -59,13 +58,13 @@ public class IfThenElse extends Stmt {
 			} else {
 				elseBody.evaluate(statein);
 			}
-			state.mapaValores= State.actualizarValoresMapViejo(state.mapaValores,statein.mapaValores);
+			state.mapaValores=State.actualizarValoresMapViejo(state.mapaValores,statein.mapaValores);
 			return state;
 		}
 		else {
 			throw new IllegalStateException(this.unparse());
 		}
-
+		
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public class IfThenElse extends Stmt {
 			checkStateElseIn=elseBody.check(checkStateElseIn);
 			s.errores.addAll(checkStateIfIn.errores);
 			s.errores.addAll(checkStateElseIn.errores);
-			s= CheckState.intersect(checkStateElseIn, checkStateIfIn);
+			s=CheckState.intersect(checkStateElseIn, checkStateIfIn);
 			return s;
 		}else{
 			s.errores.add("Error en el if debe poner condicion boolean:"+this.toString());
@@ -104,17 +103,26 @@ public class IfThenElse extends Stmt {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
-				CheckStateLinter.addError("5", "El codigo del else no ejecutar� nunca", line, column);
+				CheckStateLinter.addError5C(line, column);
 			}else{
-				CheckStateLinter.addError("5", "El codigo del then no ejecutar� nunca", line, column);
+				CheckStateLinter.addError5D(line, column);
 			}
 		}
-		
 		
 		condition.checkLinter(s);
 		thenBody.checkLinter(s);
 		elseBody.checkLinter(s);
 		return null;
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 
 }

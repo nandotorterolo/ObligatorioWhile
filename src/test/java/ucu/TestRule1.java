@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import examples.while_ut1.Parser;
-
 /**
  * Regla numeo 1
  * Que no exista más de un salto de línea entre dos líneas de código consecutivas.

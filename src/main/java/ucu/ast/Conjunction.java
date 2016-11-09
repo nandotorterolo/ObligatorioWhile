@@ -1,6 +1,6 @@
 package ucu.ast;
 
-import java.util.Random;
+import java.util.*;
 
 /** Representación de conjunciones booleanas (AND).
 */
@@ -37,7 +37,7 @@ public class Conjunction extends BExp {
 	}
 
 	public static Conjunction generate(Random random, int min, int max) {
-		BExp left; BExp right;
+		BExp left; BExp right; 
 		left = BExp.generate(random, min-1, max-1);
 		right = BExp.generate(random, min-1, max-1);
 		return new Conjunction(left, right);
@@ -79,11 +79,21 @@ public class Conjunction extends BExp {
 	public Exp optimize() {
 		Exp leftOptimized=left.optimize();
 		Exp rightOptimized=right.optimize();
-		if(leftOptimized instanceof TruthValue && rightOptimized instanceof TruthValue) {
-			return new TruthValue(((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value);
+		if(leftOptimized instanceof TruthValue  && rightOptimized instanceof TruthValue) {
+			return new TruthValue (((TruthValue)leftOptimized).value == ((TruthValue)rightOptimized).value, left.line, left.column);
 		}
 		else{
 			return this;
 		}
+	}
+
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
 	}
 }

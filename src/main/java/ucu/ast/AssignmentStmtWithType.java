@@ -1,6 +1,5 @@
 package ucu.ast;
 
-
 /** Representación de las asignaciones de valores a variables.
  */
 public class AssignmentStmtWithType extends Stmt {
@@ -43,13 +42,6 @@ public class AssignmentStmtWithType extends Stmt {
 		return (this.id == null ? other.id == null : this.id.equals(other.id))
 				&& (this.expression == null ? other.expression == null : this.expression.equals(other.expression));
 	}
-
-	//	public static AssignmentStmtWithType generate(Random random, int min, int max) {
-	//		String id; AExp expression;
-	//		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-	//		expression = AExp.generate(random, min-1, max-1);
-	//		return new AssignmentStmtWithType(id, expression);
-	//	}
 
 	@Override
 	public State evaluate(State state) {
@@ -142,15 +134,23 @@ public class AssignmentStmtWithType extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		String expressionType = this.expression.checkLinter(s);
-		if (s.mapa.containsKey(id)) CheckStateLinter.addError("14", "la variable " + id + " ya se encuentra declarada", line, column);
+		if (s.mapa.containsKey(id)) CheckStateLinter.addError14(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
-			if (key.toLowerCase().equals(id.toLowerCase()))
-				CheckStateLinter.addError("18B", "la variable " + id + " se encuentra definida como " + key, line, column);
+			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id))
+				CheckStateLinter.addError18B(id, key, line, column);
 		});
 		ObjectState objState = new ObjectState(this.type, true, 2, this);
 		s.mapa.put(this.id, objState);
 		return s;
 	}
 
+	@Override
+	public int getLine() {
+		return line;
+	}
 
+	@Override
+	public int getColumn() {
+		return column;
+	}
 }

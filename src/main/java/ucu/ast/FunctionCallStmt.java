@@ -2,8 +2,7 @@ package ucu.ast;
 
 import java.util.ArrayList;
 
-public class FunctionCallStmt extends Stmt {
-
+public class FunctionCallStmt extends Stmt{
 	public final String id;
 	public final ArrayList <Exp> parameters;
 
@@ -13,7 +12,7 @@ public class FunctionCallStmt extends Stmt {
 		this.line = line;
 		this.column = column;
 	}
-
+	
 	@Override
 	public String unparse() {
 		// TODO Auto-generated method stub
@@ -58,14 +57,13 @@ public class FunctionCallStmt extends Stmt {
 			objState.used = true;
 			FunctionDeclaration functionDeclaration = (FunctionDeclaration) objState.astNode;
 			if (!(this.parameters.size() == functionDeclaration.parameters.size())) {
-				CheckStateLinter.addError("10A", "cantidad de parametros de funcion incorrectos", line, column);
+				CheckStateLinter.addError10A(line, column);
 			} else {
 				for (int i = 0; i < this.parameters.size(); i++){
 					String parameterType = this.parameters.get(i).checkLinter(s);
 					String expectedType = (String) functionDeclaration.parameters.values().toArray()[i];
 				    if (!(parameterType == expectedType)) {
-				    	String msg = "parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType;
-				    	CheckStateLinter.addError("10B", msg, line, column);
+				    	CheckStateLinter.addError10B(expectedType, parameterType, line, column);
 				    }
 				}
 			}
@@ -73,6 +71,16 @@ public class FunctionCallStmt extends Stmt {
 //			return functionDeclaration.type;
 		}
 		return s;
+	}
+
+	@Override
+	public int getLine() {
+		return line;
+	}
+
+	@Override
+	public int getColumn() {
+		return column;
 	}
 
 }

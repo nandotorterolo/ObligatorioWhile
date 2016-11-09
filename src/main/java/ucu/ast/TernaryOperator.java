@@ -1,5 +1,7 @@
 package ucu.ast;
 
+import java.util.Map;
+
 public class TernaryOperator extends Exp {
 	public final Exp condition;
 	public final Exp thenExp;
@@ -52,15 +54,15 @@ public class TernaryOperator extends Exp {
 		if (!checkCondition.equals("Boolean")){
 			s.errores.add("Error en el if debe poner condicion boolean:"+this.toString());
 		} //asumimos para que en el caso de que la condicion no sea boolean lo es
-
+		
 		String checkThenExp=thenExp.check(s);
-		if (!(checkThenExp.equals("Boolean") || checkThenExp.equals("Integer") ||
+		if (!(checkThenExp.equals("Boolean") || checkThenExp.equals("Integer") || 
 				checkThenExp.equals("String")  || checkThenExp.equals("Double"))){
 			s.errores.add("Se debe devolver un valor:"+this.toString());
 		}
-
+		
 		String checkElseExp=elseExp.check(s);
-		if (!(checkElseExp.equals("Boolean") || checkElseExp.equals("Integer") ||
+		if (!(checkElseExp.equals("Boolean") || checkElseExp.equals("Integer") || 
 				checkElseExp.equals("String")  || checkElseExp.equals("Double"))){
 			s.errores.add("Se debe devolver un valor:"+this.toString());
 		}
@@ -86,9 +88,9 @@ public class TernaryOperator extends Exp {
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
-				CheckStateLinter.addError("5", "El codigo del else no ejecutar� nunca", line, column);
+				CheckStateLinter.addError5C(line, column);
 			}else{
-				CheckStateLinter.addError("5", "El codigo del then no ejecutar� nunca", line, column);
+				CheckStateLinter.addError5D(line, column);
 			}
 		}
 		
@@ -120,4 +122,13 @@ public class TernaryOperator extends Exp {
 		return this;
 	}
 
+	@Override
+	public int getLine() {
+		return 0;
+	}
+
+	@Override
+	public int getColumn() {
+		return 0;
+	}
 }
