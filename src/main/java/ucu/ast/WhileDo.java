@@ -87,6 +87,10 @@ public class WhileDo extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
+		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
+		
+		
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (!((TruthValue) optimizado).value){
@@ -94,13 +98,22 @@ public class WhileDo extends Stmt {
 			}
 		}
 
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add("Boolean");
+		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
+
 		Map mapaAntesWhile= CheckState.clonarMapa(s.mapa);
 		CheckStateLinter checkStateLinterWhileIn=new CheckStateLinter();
-		checkStateLinterWhileIn.mapa = mapaAntesWhile;
+		checkStateLinterWhileIn.mapa=mapaAntesWhile;
 		if (condition.checkLinter(s).equals("Boolean")){
+			body.idFunction=this.idFunction;
 			checkStateLinterWhileIn=body.checkLinter(checkStateLinterWhileIn);
+			return s;
+		}else{
+			
+			return s;
 		}
-		return s;
+		
 	}
 
 	@Override
@@ -111,5 +124,10 @@ public class WhileDo extends Stmt {
 	@Override
 	public int getColumn() {
 		return 0;
+	}
+	
+	@Override
+	public int countNestingLevels() {
+		return 1 + body.countNestingLevels();
 	}
 }

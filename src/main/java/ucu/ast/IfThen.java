@@ -8,9 +8,11 @@ public class IfThen extends Stmt {
 	public final Exp condition;
 	public final Stmt thenBody;
 
-	public IfThen(Exp condition, Stmt thenBody) {
+	public IfThen(Exp condition, Stmt thenBody, int line, int column) {
 		this.condition = condition;
 		this.thenBody = thenBody;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override public String unparse() {
@@ -34,13 +36,6 @@ public class IfThen extends Stmt {
 		IfThen other = (IfThen)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
 				&& (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody));
-	}
-
-	public static IfThen generate(Random random, int min, int max) {
-		BExp condition; Stmt thenBody;  
-		condition = BExp.generate(random, min-1, max-1);
-		thenBody = Stmt.generate(random, min-1, max-1);
-		return new IfThen(condition, thenBody);
 	}
 
 	@Override
@@ -87,6 +82,9 @@ public class IfThen extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
+		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
+		
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
@@ -95,19 +93,29 @@ public class IfThen extends Stmt {
 				CheckStateLinter.addError5B(line, column);
 			}
 		}
+		
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add("Boolean");
+		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
 
 		condition.checkLinter(s);
+		thenBody.idFunction=this.idFunction;
 		thenBody.checkLinter(s);
-		return null;
+		return s;
 	}
 
 	@Override
 	public int getLine() {
-		return 0;
+		return line;
 	}
 
 	@Override
 	public int getColumn() {
-		return 0;
+		return column;
+	}
+	
+	@Override
+	public int countNestingLevels() {
+		return 1 + thenBody.countNestingLevels();
 	}
 }

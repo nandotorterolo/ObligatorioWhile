@@ -1,5 +1,7 @@
 package ucu.ast;
 
+import java.util.ArrayList;
+
 /** Representación de las asignaciones de valores a variables.
  */
 public class AssignmentStmtWithType extends Stmt {
@@ -15,7 +17,6 @@ public class AssignmentStmtWithType extends Stmt {
 		this.column = column;
 	}
 
-
 	@Override public String unparse() {
 		if (type != null) {
 			return type + " " + id +" = "+ expression.unparse() +"; ";
@@ -25,7 +26,7 @@ public class AssignmentStmtWithType extends Stmt {
 	}
 
 	@Override public String toString() {
-		return "AssignmentWithType("+ id +", "+ expression +")";
+		return "AssignmentStmtWithType("+ id +", "+ expression +")";
 	}
 
 	@Override public int hashCode() {
@@ -96,9 +97,6 @@ public class AssignmentStmtWithType extends Stmt {
 		}
 	}
 
-
-
-
 	@Override
 	public CheckState check(CheckState s) {
 		ObjectState objectState=new ObjectState();
@@ -123,24 +121,31 @@ public class AssignmentStmtWithType extends Stmt {
 		return s;
 	}
 
-
-
 	public void meterTipo(State state){
 		state.mapaTipo.put(id,type);
 		state.mapaValores.put(id,null);
 	}
 
-
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (expression.countOperators() > 7) CheckStateLinter.addError20(expression.countOperators(), line, column);
+		if (Character.isUpperCase(id.charAt(0)) || id.charAt(0) == '_') CheckStateLinter.addError6(line, column);
 		String expressionType = this.expression.checkLinter(s);
-		if (s.mapa.containsKey(id)) CheckStateLinter.addError14(id, line, column);
+		if (s.mapa.containsKey(id) && !s.mapa.get(id).isFunction()) CheckStateLinter.addError14_19(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
-			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id))
+			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && !s.mapa.get(key).isFunction())
 				CheckStateLinter.addError18B(id, key, line, column);
 		});
 		ObjectState objState = new ObjectState(this.type, true, 2, this);
 		s.mapa.put(this.id, objState);
+		
+		
+		
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add(this.type);
+		CheckStateLinter.evaluarRegla9(expression, s, tiposAceptados);
+		
+		
 		return s;
 	}
 
@@ -152,5 +157,10 @@ public class AssignmentStmtWithType extends Stmt {
 	@Override
 	public int getColumn() {
 		return column;
+	}
+	
+	@Override
+	public int countNestingLevels() {
+		return 0;
 	}
 }

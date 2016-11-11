@@ -6,7 +6,8 @@ import java.util.*;
 */
 public class Return extends Stmt {
 	public final Exp exp;	
-
+	
+	
 	public Return(Exp exp, int line, int column) {
 		this.exp = exp;
 		this.line = line;
@@ -45,8 +46,25 @@ public class Return extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
-		// TODO Auto-generated method stub
-		return null;
+		if (exp.countOperators() > 7) CheckStateLinter.addError20(exp.countOperators(), line, column);
+		
+		String tipoExp=exp.checkLinter(s);		
+		if (s.mapa.get(this.idFunction).tipo.equals("Void")){
+			CheckStateLinter.addError12A(this.idFunction, line, column);
+		}
+		else if (tipoExp.equals(s.mapa.get(this.idFunction).tipo)){
+			CheckStateLinter.addError12B(this.idFunction, line, column);
+		}
+		
+		
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add(s.mapa.get(this.idFunction).tipo);
+		CheckStateLinter.evaluarRegla9(this.exp, s, tiposAceptados);
+		
+		
+		
+		///ver que hago con idFunction de stmt
+		return s;
 	}
 
 	@Override
@@ -56,6 +74,11 @@ public class Return extends Stmt {
 
 	@Override
 	public int getColumn() {
+		return 0;
+	}
+
+	@Override
+	public int countNestingLevels() {
 		return 0;
 	}
 }

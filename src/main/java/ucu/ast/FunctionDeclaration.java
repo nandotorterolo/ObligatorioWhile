@@ -2,7 +2,7 @@ package ucu.ast;
 
 import java.util.*;
 
-/** Representación de las asignaciones de valores a variables.
+/** RepresentaciÃ³n de las asignaciones de valores a variables.
  */
 public class FunctionDeclaration extends Stmt {
 	public final String id;
@@ -10,7 +10,7 @@ public class FunctionDeclaration extends Stmt {
 	public final LinkedHashMap<String, String> parameters;
 	public final Stmt body;
 
-	//hay que clonar el estado para guardar las variables locales de la funic�n
+	//hay que clonar el estado para guardar las variables locales de la funicón
 
 	public FunctionDeclaration(String id, String type,
 			LinkedHashMap<String, String> parameters,Stmt body,
@@ -73,13 +73,30 @@ public class FunctionDeclaration extends Stmt {
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
 		if (Character.isUpperCase(id.charAt(0))) CheckStateLinter.addError7(line, column);
-		if (s.mapa.containsKey(id)) CheckStateLinter.addError13(id, line, column);
+		if (body.countNestingLevels() > 5) CheckStateLinter.addError21(body.countNestingLevels(), line, column);
+		if (s.mapa.containsKey(id) && s.mapa.get(id).isFunction()) CheckStateLinter.addError13(id, line, column);
 		s.mapa.keySet().forEach((key) -> {
-			if (key.toLowerCase().equals(id.toLowerCase()))
+			if (key.toLowerCase().equals(id.toLowerCase()) && !key.equals(id) && s.mapa.get(key).isFunction())
 				CheckStateLinter.addError18A(id, key, line, column);
 		});
-		ObjectState objState = new ObjectState(type, false, 1, this);
-		s.mapa.put(id, objState);
+		
+		s.mapa.put(id, new ObjectState(type, false, 1, this));
+		
+		Map<String,ObjectState> clonedMap = CheckState.clonarMapa(s.mapa);
+		CheckStateLinter cslForOutsideVariables = new CheckStateLinter();
+		cslForOutsideVariables.mapa = clonedMap;
+		body.checkLinter(cslForOutsideVariables);
+		
+		Map<String,ObjectState> parametersMap = new HashMap<String,ObjectState>();
+		for (Map.Entry<String, String> parameter : parameters.entrySet()) {
+			parametersMap.put(parameter.getKey(), new ObjectState(parameter.getValue(), false, 2, this));
+		}
+		CheckStateLinter cslForParams = new CheckStateLinter();
+		cslForParams.mapa = parametersMap;
+		body.idFunction=id;
+		cslForParams = body.checkLinter(cslForParams);
+		CheckStateLinter.generateErrors(cslForParams);
+		
 		return s;
 	}
 
@@ -91,5 +108,10 @@ public class FunctionDeclaration extends Stmt {
 	@Override
 	public int getColumn() {
 		return column;
+	}
+	
+	@Override
+	public int countNestingLevels() {
+		return body.countNestingLevels();
 	}
 }

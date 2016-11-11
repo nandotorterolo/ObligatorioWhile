@@ -8,7 +8,8 @@ import java.util.Map;
 public class CheckStateLinter {
 	public static ArrayList<String> errores = new ArrayList<String>();
 	public Map<String,ObjectState> mapa = new HashMap<String,ObjectState>();
-	
+
+
 	public static void generateErrors(CheckStateLinter cslint) {
 		for (Map.Entry<String, ObjectState> element : cslint.mapa.entrySet()) {
 			ObjectState objState = element.getValue();
@@ -16,7 +17,7 @@ public class CheckStateLinter {
 				if (objState.isFunction()) {
 					addError3(objState.getLine(), objState.getColumn());
 				} else {
-					addError4(objState.getLine(), objState.getColumn());
+					addError4_11(objState.getLine(), objState.getColumn());
 				}
 			}
 		}
@@ -25,14 +26,14 @@ public class CheckStateLinter {
 	@Override
 	public String toString() {
 		String resultado = "";
-			
+
 		for (String value : errores) {
 			resultado = resultado + "\n" + value;
 		}
-		
+
 		return resultado;
 	}
-	
+
 	public static void addError1(int line, int column) {
 		addError("1", "existe mas de un salto de linea consecutivo", line, column); 
 	}
@@ -45,8 +46,8 @@ public class CheckStateLinter {
 		addError("3", "funcion declarada sin llamar", line, column); 
 	}
 	
-	public static void addError4(int line, int column) {
-		addError("4", "variable asignada sin usar", line, column); 
+	public static void addError4_11(int line, int column) {
+		addError("4-11", "variable definida sin usar", line, column); 
 	}
 	
 	public static void addError5A(int line, int column) {
@@ -85,12 +86,20 @@ public class CheckStateLinter {
 		addError("10B", "parametro de funcion de tipo incorrecto. Esperado: " + expectedType + ", actual: " + parameterType, line, column);
 	}
 	
+	public static void addError12A(String functionName, int line, int column) {
+		addError("12A", "la funcion " + functionName + " no devuelve nada segun su definicion", line, column); 
+	}
+	
+	public static void addError12B(String functionName, int line, int column) {
+		addError("12B", "El tipo de la expresion del return no coincide con el la funci�n " + functionName, line, column); 
+	}
+	
 	public static void addError13(String functionName, int line, int column) {
 		addError("13", "la funcion " + functionName + " ya se encuentra definida", line, column); 
 	}
 	
-	public static void addError14(String variableId, int line, int column) {
-		addError("14", "la variable " + variableId + " ya se encuentra declarada", line, column);
+	public static void addError14_19(String variableId, int line, int column) {
+		addError("14-19", "la variable " + variableId + " ya se encuentra declarada", line, column);
 	}
 	
 	public static void addError16(int line, int column) {
@@ -102,11 +111,19 @@ public class CheckStateLinter {
 	}
 	
 	public static void addError18A(String functionName, String oldFunctionName, int line, int column) {
-		addError("18B",  "la funcion " + functionName + " se encuentra definida como " + oldFunctionName, line, column);
+		addError("18A",  "la funcion " + functionName + " se encuentra definida como " + oldFunctionName, line, column);
 	}
 	
 	public static void addError18B(String variableId, String oldVariableId, int line, int column) {
 		addError("18B", "la variable " + variableId + " se encuentra definida como " + oldVariableId, line, column);
+	}
+	
+	public static void addError20(int operators, int line, int column) {
+		addError("20", "existe una expresion con " + operators + " operadores", line, column);
+	}
+	
+	public static void addError21(int nestingLevels, int line, int column) {
+		 addError("21", "existe un statement con " + nestingLevels + " niveles de anidacion", line, column);
 	}
 	
 	private static void addError(String code, String msg, int line, int column) {
@@ -114,6 +131,24 @@ public class CheckStateLinter {
 	}
 	
 	private static String createErrorMsg(String code, String msg, int line, int column) {
-		return "Error " + code + ": " + msg + "." + " Line: " + line + ", Column: " + column;
+		return "Offense detected - " + code + ": " + msg + "." + " Line: " + line + ", Column: " + column;
 	}
+
+	public static void evaluarRegla9(Exp expression,CheckStateLinter s, ArrayList<String> tiposAceptados){
+		if (expression!=null && expression instanceof FunctionCall && s.mapa.containsKey(((FunctionCall) expression).id)){
+			String functionId=((FunctionCall) expression).id;
+			if (s.mapa.get(functionId).tipo.equals("Void")){
+				CheckStateLinter.addError("9A", "La funcion no devuelve valor alguno", ((FunctionCall)expression).line,
+						((FunctionCall)expression).column);
+			}else if(!tiposAceptados.contains(s.mapa.get(functionId).tipo)){
+				CheckStateLinter.addError("9B", "La funcion no devuelve el tipo esperado", ((FunctionCall)expression).line,
+						((FunctionCall)expression).column);
+			}
+		}
+		else if (expression!=null && expression instanceof FunctionCall && !s.mapa.containsKey(((FunctionCall) expression).id)) {
+			CheckStateLinter.addError("9", "Función no definida", ((FunctionCall)expression).line,
+					((FunctionCall)expression).column);
+		}
+	}
+
 }

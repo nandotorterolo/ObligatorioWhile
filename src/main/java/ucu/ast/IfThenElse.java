@@ -9,10 +9,12 @@ public class IfThenElse extends Stmt {
 	public final Stmt thenBody;
 	public final Stmt elseBody;
 
-	public IfThenElse(Exp condition, Stmt thenBody, Stmt elseBody) {
+	public IfThenElse(Exp condition, Stmt thenBody, Stmt elseBody, int line, int column) {
 		this.condition = condition;
 		this.thenBody = thenBody;
 		this.elseBody = elseBody;
+		this.line = line;
+		this.column = column;
 	}
 
 	@Override public String unparse() {
@@ -38,14 +40,6 @@ public class IfThenElse extends Stmt {
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
 				&& (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody))
 				&& (this.elseBody == null ? other.elseBody == null : this.elseBody.equals(other.elseBody));
-	}
-
-	public static IfThenElse generate(Random random, int min, int max) {
-		BExp condition; Stmt thenBody; Stmt elseBody; 
-		condition = BExp.generate(random, min-1, max-1);
-		thenBody = Stmt.generate(random, min-1, max-1);
-		elseBody = Stmt.generate(random, min-1, max-1);
-		return new IfThenElse(condition, thenBody, elseBody);
 	}
 
 	@Override
@@ -100,6 +94,9 @@ public class IfThenElse extends Stmt {
 
 	@Override
 	public CheckStateLinter checkLinter(CheckStateLinter s) {
+		if (countNestingLevels() > 5) CheckStateLinter.addError21(countNestingLevels(), line, column);
+		if (condition.countOperators() > 7) CheckStateLinter.addError20(condition.countOperators(), line, column);
+		
 		Exp optimizado=condition.optimize();
 		if (optimizado instanceof TruthValue){
 			if (((TruthValue) optimizado).value){
@@ -109,20 +106,33 @@ public class IfThenElse extends Stmt {
 			}
 		}
 		
+		
+		ArrayList <String> tiposAceptados=new ArrayList<String>();
+		tiposAceptados.add("Boolean");
+		CheckStateLinter.evaluarRegla9(this.condition, s, tiposAceptados);
+		
 		condition.checkLinter(s);
+		thenBody.idFunction=this.idFunction;
 		thenBody.checkLinter(s);
+		elseBody.idFunction=this.idFunction;
 		elseBody.checkLinter(s);
-		return null;
+		return s;
 	}
 
 	@Override
 	public int getLine() {
-		return 0;
+		return line;
 	}
 
 	@Override
 	public int getColumn() {
-		return 0;
+		return column;
 	}
 
+	@Override
+	public int countNestingLevels() {
+		int thenNestingLevels = thenBody.countNestingLevels();
+		int elseNestingLevels = elseBody.countNestingLevels(); 
+		return 1 + (thenNestingLevels > elseNestingLevels ? thenNestingLevels : elseNestingLevels);
+	}
 }
