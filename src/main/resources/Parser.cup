@@ -1,4 +1,4 @@
-package examples.while_ut1;
+package ucu;
 
 import ucu.ast.*;
 import java.io.*;
@@ -239,12 +239,7 @@ exp ::=
 		{: RESULT = new FunctionCall($4, $2, $4left, $4right); :}
 ;
 
-
-parametros ::= 		
-		{: ArrayList<Exp> $0;
-		$0 = new ArrayList<Exp>();
-		RESULT = $0; :}
-	|	exp:$2 COMMA parametros:$1  
+parametros ::= exp:$2 COMMA parametros:$1
 		{: ArrayList<Exp> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
@@ -256,10 +251,7 @@ parametros ::=
 
 ;
 
-
-
-parametrosConTipo ::=  		
-		{: LinkedHashMap<String, String> $0;
+parametrosConTipo ::= {: LinkedHashMap<String, String> $0;
 		$0 = new LinkedHashMap<String, String>();
 		RESULT = $0; :}
 	|	tipo:$3 ID:$2 COMMA parametrosConTipo:$1 
@@ -275,8 +267,7 @@ parametrosConTipo ::=
 
 
 
-repeat$stmtBasics ::=
-		{: List<Stmt> $0;
+repeat$stmtBasics ::= {: List<Stmt> $0;
 		$0 = new ArrayList<Stmt>();
 		RESULT = $0; :}
 	|	repeat$stmtBasics:$1 stmtBasics:$2
@@ -291,8 +282,7 @@ repeat$stmtBasics ::=
 		RESULT = $0; :}
 ;
 
-repeat$stmtFunctions ::=
-		{: List<Stmt> $0;
+repeat$stmtFunctions ::= {: List<Stmt> $0;
 		$0 = new ArrayList<Stmt>();
 		RESULT = $0; :}
 	|	repeat$stmtFunctions:$1 stmtFunctions:$2
@@ -307,8 +297,7 @@ repeat$stmtFunctions ::=
 		RESULT = $0; :}	
 ;
 
-repeat$stmtMain ::=
-		{: List<Stmt> $0;
+repeat$stmtMain ::= {: List<Stmt> $0;
 		$0 = new ArrayList<Stmt>();
 		RESULT = $0; :}
 	|	repeat$stmtMain:$1 stmtMain:$2
@@ -322,8 +311,3 @@ repeat$stmtMain ::=
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}	
 ;
-
-
-
-
-

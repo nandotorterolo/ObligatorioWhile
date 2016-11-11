@@ -17,6 +17,8 @@ public class TestRule2 extends TestCase {
 
 	Map<Integer, String> datosPruebas = new HashMap<Integer, String>();
 	Logger logger = Logger.getAnonymousLogger();
+    String expected = "No debe haber mas de un statement en la misma linea.";
+    CheckStateLinter checkStateLinter = new CheckStateLinter();
 
 	protected void setUp() throws Exception {
 		loadData();
@@ -34,19 +36,19 @@ public class TestRule2 extends TestCase {
 	public void testData1() {
 		try {
 			Integer numTest =1;   // Setear este valor
-			
+
+            CheckStateLinter.errores.clear();
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
 
-			CheckStateLinter check = ((Stmt) obj).checkLinter(new CheckStateLinter());
+			CheckStateLinter check = ((Stmt) obj).checkLinter(checkStateLinter);
 
 			String actual = check.toString();
-			String expected = "";
 
 			logger.log(Level.INFO, actual);
 
-			assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual + " evaluando:" + datosPruebas.get(numTest),
-                    actual.contains(expected));
+            assertTrue("No se esperaba recibir:[" + expected + "] pero el resultado fue " + actual + " evaluando:" + datosPruebas.get(numTest)
+                    , !actual.contains(expected));
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.toString(), e.getCause());
@@ -56,19 +58,18 @@ public class TestRule2 extends TestCase {
     public void testData2() {
         try {
             Integer numTest =2;   // "{int y=3;}"
-
+            CheckStateLinter.errores.clear();
             Object obj = Parse.parse(datosPruebas.get(numTest));
             logger.log(Level.INFO, obj.toString());
 
-            CheckStateLinter check = ((Stmt) obj).checkLinter(new CheckStateLinter());
+            CheckStateLinter check = ((Stmt) obj).checkLinter(checkStateLinter);
 
             String actual = check.toString();
-            String expected = "No debe haber mas de un statement en la misma linea.";
 
             logger.log(Level.INFO, actual);
 
-            assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual + " evaluando:" + datosPruebas.get(numTest)
-                    , actual.contains(expected));
+            assertTrue("No se esperaba recibir:[" + expected + "] pero el resultado fue " + actual + " evaluando:" + datosPruebas.get(numTest)
+                    , !actual.contains(expected));
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.toString(), e.getCause());
@@ -78,18 +79,17 @@ public class TestRule2 extends TestCase {
     public void testData3() {
         try {
             Integer numTest =3;   // Setear este valor
-
+            CheckStateLinter.errores.clear();
             Object obj = Parse.parse(datosPruebas.get(numTest));
             logger.log(Level.INFO, obj.toString());
 
 
-            String actual = ((Stmt) obj).checkLinter(new CheckStateLinter()).toString();
-            String expected = "";
+            String actual = ((Stmt) obj).checkLinter(checkStateLinter).toString();
 
             logger.log(Level.INFO, actual);
 
-            assertTrue("Se esperaba " + expected + "pero el resultado fue " + actual + " evaluando:" + datosPruebas.get(numTest)
-                    , actual.contains(expected));
+            assertTrue("No Se esperaba recibir:[ " + expected + "] pero el resultado fue " + actual + " evaluando:\n" + datosPruebas.get(numTest)
+                    , !actual.contains(expected));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,15 +100,13 @@ public class TestRule2 extends TestCase {
     public void testData4() {
         try {
             Integer numTest =4;   // Setear este valor
-
+            CheckStateLinter.errores.clear();
             Object obj = Parse.parse(datosPruebas.get(numTest));
             logger.log(Level.INFO, obj.toString());
 
-            CheckStateLinter check = ((Stmt) obj).checkLinter(new CheckStateLinter());
+            CheckStateLinter check = ((Stmt) obj).checkLinter(checkStateLinter);
 
             String actual = check.toString();
-            String expected = "No debe haber mas de un statement en la misma linea.";
-
 
             logger.log(Level.INFO, actual);
 
@@ -120,4 +118,25 @@ public class TestRule2 extends TestCase {
         }
     }
 
+    public void testData5() {
+        try {
+            Integer numTest =5;   // Setear este valor
+            CheckStateLinter.errores.clear();
+            Object obj = Parse.parse(datosPruebas.get(numTest));
+            logger.log(Level.INFO, obj.toString());
+
+
+            CheckStateLinter check = ((Stmt) obj).checkLinter(checkStateLinter);
+
+            String actual = check.toString();
+
+            logger.log(Level.INFO, actual);
+
+            assertTrue("No Se esperaba recibir:[ " + expected + "] pero el resultado fue " + actual + " evaluando:\n" + datosPruebas.get(numTest)
+                    , !actual.contains(expected));
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.toString(), e.getCause());
+        }
+    }
 }

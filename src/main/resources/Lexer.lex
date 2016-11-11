@@ -1,4 +1,4 @@
-package examples.while_ut1;
+package ucu;
 
 import java_cup.runtime.Symbol;
 import java.util.*;
