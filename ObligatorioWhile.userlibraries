@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Maven: de.jflex:jflex:1.4.3">
+    <archive path="/home/fernando/.m2/repository/de/jflex/jflex/1.4.3/jflex-1.4.3.jar" />
+  </library>
+  <library name="Maven: junit:junit:4.8.2">
+    <archive path="/home/fernando/.m2/repository/junit/junit/4.8.2/junit-4.8.2.jar" />
+  </library>
+  <library name="scala-sdk-2.11.7">
+    <archive path="/home/fernando/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.7.jar" />
+    <archive path="/home/fernando/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar" />
+  </library>
+</eclipse-userlibraries>
+
