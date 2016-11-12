@@ -35,7 +35,7 @@ public class TestRule1 extends TestCase {
 	public void testData() {
 		try {
 			Integer numTest =1;   // Setear este valor
-			
+			CheckStateLinter.errores.clear();
 			Object obj = Parse.parse(datosPruebas.get(numTest));
 			logger.log(Level.INFO, obj.toString());
 
@@ -60,6 +60,7 @@ public class TestRule1 extends TestCase {
         datosPruebas.forEach((numTest,strTest) -> {
             logger.log(Level.INFO, "test" + numTest + " : " + strTest);
             try {
+				CheckStateLinter.errores.clear();
             	Object obj = Parse.parse(datosPruebas.get(numTest));
                 logger.log(Level.INFO,obj.toString());
     			CheckStateLinter check = ((Stmt) obj).checkLinter(state);

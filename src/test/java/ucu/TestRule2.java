@@ -47,7 +47,7 @@ public class TestRule2 extends TestCase {
 
 			logger.log(Level.INFO, actual);
 
-            assertTrue("No se esperaba recibir:[" + expected + "] pero el resultado fue " + actual + " evaluando:" + datosPruebas.get(numTest)
+            assertTrue("No se esperaba recibir:[" + expected + "] pero el resultado fue [" + actual + "] evaluando:" + datosPruebas.get(numTest)
                     , !actual.contains(expected));
 
 		} catch (Exception e) {
@@ -68,7 +68,7 @@ public class TestRule2 extends TestCase {
 
             logger.log(Level.INFO, actual);
 
-            assertTrue("No se esperaba recibir:[" + expected + "] pero el resultado fue " + actual + " evaluando:" + datosPruebas.get(numTest)
+            assertTrue("No se esperaba recibir:[" + expected + "] pero el resultado fue [" + actual + "] evaluando:" + datosPruebas.get(numTest)
                     , !actual.contains(expected));
 
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class TestRule2 extends TestCase {
 
             logger.log(Level.INFO, actual);
 
-            assertTrue("No Se esperaba recibir:[ " + expected + "] pero el resultado fue " + actual + " evaluando:\n" + datosPruebas.get(numTest)
+            assertTrue("No Se esperaba :[ " + expected + "] pero el resultado fue [" + actual + "] evaluando:\n" + datosPruebas.get(numTest)
                     , !actual.contains(expected));
 
         } catch (Exception e) {
@@ -99,7 +99,7 @@ public class TestRule2 extends TestCase {
 
     public void testData4() {
         try {
-            Integer numTest =4;   // Setear este valor
+            Integer numTest =4;   // {int y=2;\n\ny=3;}
             CheckStateLinter.errores.clear();
             Object obj = Parse.parse(datosPruebas.get(numTest));
             logger.log(Level.INFO, obj.toString());
@@ -110,8 +110,8 @@ public class TestRule2 extends TestCase {
 
             logger.log(Level.INFO, actual);
 
-            assertFalse("Se esperaba " + expected + "pero el resultado fue " + actual + " evaluando: " + datosPruebas.get(numTest)
-                    , actual.contains(expected));
+            assertTrue("No se esperaba: [" + expected + "] pero el resultado fue [" + actual + "] evaluando: " + datosPruebas.get(numTest)
+                    , !actual.contains(expected));
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.toString(), e.getCause());

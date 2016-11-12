@@ -31,11 +31,11 @@ parser code {:
 
 
 non terminal Stmt stmtBasics;
-non terminal List<Stmt> repeat$stmtBasics;
+non terminal List<Stmt> repeatstmtBasics;
 non terminal Stmt stmtFunctions;
-non terminal List<Stmt> repeat$stmtFunctions;
+non terminal List<Stmt> repeatstmtFunctions;
 non terminal Stmt stmtMain;
-non terminal List<Stmt> repeat$stmtMain;
+non terminal List<Stmt> repeatstmtMain;
 
 non terminal Exp exp;
 non terminal String tipo;
@@ -104,7 +104,7 @@ stmtBasics ::=
     	{: RESULT = new AssignmentStmtWithType($5, $1, $3, $5left, $5right); :}
   	|	tipo:$5 ID:$1 SEMICOLON:$4
     	{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :}
-    |	LEFT_CURLY_BRACKET:$1 repeat$stmtBasics:$2 RIGHT_CURLY_BRACKET:$3
+    |	LEFT_CURLY_BRACKET:$1 repeatstmtBasics:$2 RIGHT_CURLY_BRACKET:$3
 		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :} 
 	|	SKIP:$1 SEMICOLON:$2
 		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
@@ -128,7 +128,7 @@ stmtMain ::=
     	{: RESULT = new AssignmentStmtWithType($5, $1, $3, $5left, $5right); :}
   	|	tipo:$5 ID:$1 SEMICOLON:$4
     	{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :}
-    |	LEFT_CURLY_BRACKET:$1 repeat$stmtMain:$2 RIGHT_CURLY_BRACKET:$3
+    |	LEFT_CURLY_BRACKET:$1 repeatstmtMain:$2 RIGHT_CURLY_BRACKET:$3
 		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :} 
 	|	SKIP:$1 SEMICOLON:$2
 		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
@@ -156,7 +156,7 @@ stmtFunctions ::=
 		{: RESULT = new AssignmentStmtWithType($5, $1,null,$5left, $5right); :} 
 	|	SKIP:$1 SEMICOLON:$2
 		{: RESULT = new Sequence(new Stmt[0], $1left, $1right); :}
-	|	LEFT_CURLY_BRACKET:$1 repeat$stmtFunctions:$2 RIGHT_CURLY_BRACKET:$3
+	|	LEFT_CURLY_BRACKET:$1 repeatstmtFunctions:$2 RIGHT_CURLY_BRACKET:$3
 		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()]), $1left, $1right); :}
 	|	WHILE:$1 exp:$2 DO:$3 stmtFunctions:$4
 		{: RESULT = new WhileDo($2, $4); :}
@@ -251,9 +251,10 @@ parametros ::= exp:$2 COMMA parametros:$1
 
 ;
 
-parametrosConTipo ::= {: LinkedHashMap<String, String> $0;
-		$0 = new LinkedHashMap<String, String>();
-		RESULT = $0; :}
+parametrosConTipo ::=
+        {: LinkedHashMap<String, String> res;
+		res = new LinkedHashMap<String, String>();
+		RESULT = res; :}
 	|	tipo:$3 ID:$2 COMMA parametrosConTipo:$1 
 		{: LinkedHashMap<String, String> $0;
 		$1.put($2, $3); $0 = $1;
@@ -267,46 +268,49 @@ parametrosConTipo ::= {: LinkedHashMap<String, String> $0;
 
 
 
-repeat$stmtBasics ::= {: List<Stmt> $0;
-		$0 = new ArrayList<Stmt>();
-		RESULT = $0; :}
-	|	repeat$stmtBasics:$1 stmtBasics:$2
+repeatstmtBasics ::=
+        {: List<Stmt> res;
+		res = new ArrayList<Stmt>();
+		RESULT = res; :}
+	|	repeatstmtBasics:$1 stmtBasics:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		if ($1.size()>1){
 		CheckStateLinter.addError2($2left, $2right);}
 		RESULT = $0; :}
-	|	repeat$stmtBasics:$1 NEW_LINE stmtBasics:$2
+	|	repeatstmtBasics:$1 NEW_LINE stmtBasics:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
 ;
 
-repeat$stmtFunctions ::= {: List<Stmt> $0;
-		$0 = new ArrayList<Stmt>();
-		RESULT = $0; :}
-	|	repeat$stmtFunctions:$1 stmtFunctions:$2
+repeatstmtFunctions ::=
+        {: List<Stmt> res;
+		res = new ArrayList<Stmt>();
+		RESULT = res; :}
+	|	repeatstmtFunctions:$1 stmtFunctions:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		if ($1.size()>1){
 		CheckStateLinter.addError2($2left, $2right);}
 		RESULT = $0; :}
-	|	repeat$stmtFunctions:$1 NEW_LINE stmtFunctions:$2
+	|	repeatstmtFunctions:$1 NEW_LINE stmtFunctions:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}	
 ;
 
-repeat$stmtMain ::= {: List<Stmt> $0;
-		$0 = new ArrayList<Stmt>();
-		RESULT = $0; :}
-	|	repeat$stmtMain:$1 stmtMain:$2
+repeatstmtMain ::=
+        {: List<Stmt> res;
+		res = new ArrayList<Stmt>();
+		RESULT = res; :}
+	|	repeatstmtMain:$1 stmtMain:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		if ($1.size()>1){
 		CheckStateLinter.addError2($2left, $2right);}
 		RESULT = $0; :}
-	|	repeat$stmtMain:$1 NEW_LINE stmtMain:$2
+	|	repeatstmtMain:$1 NEW_LINE stmtMain:$2
 		{: List<Stmt> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}	

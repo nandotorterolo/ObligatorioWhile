@@ -23,20 +23,14 @@ public class FunctionDeclaration extends Stmt {
 		this.column = column;
 	}
 
-
 	@Override public String toString() {
-		String devolver="function "+type+" "+id+" (";
-		List <String>keys=(List) parameters.values();
-		int i=0;
-		for (String parameter:keys){
-			devolver+=parameter+" "+parameters.get(parameter);
-			i++;
-			if (i!=keys.size()){
-				devolver+=",";
-			}
+		String devolver = "function " + type + " " + id + " (";
+		for (String parameter:parameters.values()){
+			devolver += parameter + " " +  parameters.get(parameter) +", ";
 		}
-		devolver+=");";
-		return devolver;
+		// en caso de haber parametros, le quito los 2 ultimos caracteres ", "
+		if(!parameters.isEmpty()) devolver = devolver.substring(0,devolver.length() -2);
+		return devolver + ");";
 	}
 
 	@Override public int hashCode() {

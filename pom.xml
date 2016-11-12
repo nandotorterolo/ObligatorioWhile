@@ -24,11 +24,12 @@
             <artifactId>jflex</artifactId>
             <version>1.4.3</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.vbmacher</groupId>
-            <artifactId>java-cup-runtime</artifactId>
-            <version>11b-20160615</version>
-        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>com.github.vbmacher</groupId>-->
+            <!--<artifactId>java-cup-runtime</artifactId>-->
+            <!--<version>11b-20160615</version>-->
+        <!--</dependency>-->
 
         <!--<dependency>-->
             <!--<groupId>java-cup</groupId>-->
@@ -38,48 +39,62 @@
             <!--<systemPath>${project.basedir}/src/main/resources/java-cup-0.11a-beta-20060608.jar</systemPath>-->
         <!--</dependency>-->
 
-	</dependencies>
+        <!--<dependency>-->
+            <!--<groupId>java-cup</groupId>-->
+            <!--<artifactId>java-cup-runtime</artifactId>-->
+            <!--<version>0.11a</version>-->
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${project.basedir}/src/main/resources/java-cup-0.11a-beta-20060608-runtime.jar</systemPath>-->
+        <!--</dependency>-->
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>de.jflex</groupId>
-                <artifactId>maven-jflex-plugin</artifactId>
-                <version>1.4.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <lexDefinitions>
-                                <lexDefinition>src/main/resources/Lexer.lex</lexDefinition>
-                            </lexDefinitions>
-                            <outputDirectory>src/main/java</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.github.vbmacher</groupId>
-                <artifactId>cup-maven-plugin</artifactId>
-                <version>11b-20160615</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <cupDefinition>src/main/resources/Parser.cup</cupDefinition>
-                            <outputDirectory>src/main/java</outputDirectory>
-                            <className>Parser</className>
-                            <symbolsName>Tokens</symbolsName>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+
+        <!--<dependency>-->
+            <!--<groupId>net.sf.squirrel-sql.thirdparty-non-maven</groupId>-->
+            <!--<artifactId>java-cup</artifactId>-->
+            <!--<version>0.11a</version>-->
+        <!--</dependency>-->
+    </dependencies>
+
+<!--     <build> -->
+<!--         <plugins> -->
+<!--             <plugin> -->
+<!--                 <groupId>de.jflex</groupId> -->
+<!--                 <artifactId>maven-jflex-plugin</artifactId> -->
+<!--                 <version>1.4.3</version> -->
+<!--                 <executions> -->
+<!--                     <execution> -->
+<!--                         <goals> -->
+<!--                             <goal>generate</goal> -->
+<!--                         </goals> -->
+<!--                         <configuration> -->
+<!--                             <lexDefinitions> -->
+<!--                                 <lexDefinition>src/main/resources/Lexer.lex</lexDefinition> -->
+<!--                             </lexDefinitions> -->
+<!--                             <outputDirectory>src/main/java</outputDirectory> -->
+<!--                         </configuration> -->
+<!--                     </execution> -->
+<!--                 </executions> -->
+<!--             </plugin> -->
+<!--             <plugin> -->
+<!--                 <groupId>com.github.vbmacher</groupId> -->
+<!--                 <artifactId>cup-maven-plugin</artifactId> -->
+<!--                 <version>11b-20160615</version> -->
+<!--                 <executions> -->
+<!--                     <execution> -->
+<!--                         <goals> -->
+<!--                             <goal>generate</goal> -->
+<!--                         </goals> -->
+<!--                         <configuration> -->
+<!--                             <cupDefinition>src/main/resources/Parser.cup</cupDefinition> -->
+<!--                             <outputDirectory>src/main/java</outputDirectory> -->
+<!--                             <className>Parser</className> -->
+<!--                             <symbolsName>Tokens</symbolsName> -->
+<!--                         </configuration> -->
+<!--                     </execution> -->
+<!--                 </executions> -->
+<!--             </plugin> -->
+<!--         </plugins> -->
+<!--     </build> -->
 
 
 	<properties>
